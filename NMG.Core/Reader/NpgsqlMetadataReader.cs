@@ -34,8 +34,11 @@ namespace NMG.Core.Reader
                         tableDetailsCommand.CommandText = string.Format(@"select
                             c.column_name
                             ,c.data_type
+                            ,c.character_maximum_length
                             ,c.is_nullable
                             ,b.constraint_type as type
+                            ,c.numeric_precision
+                            ,c.numeric_scale
                             from information_schema.constraint_column_usage a
                             inner join information_schema.table_constraints b on a.constraint_name=b.constraint_name
                             inner join  information_schema.columns c on a.column_name=c.column_name and a.table_name=c.table_name
@@ -44,16 +47,22 @@ namespace NMG.Core.Reader
                             select
                             a.column_name
                             ,a.data_type
+                            ,a.character_maximum_length
                             ,a.is_nullable
                             ,b.constraint_type as type
+                            ,a.numeric_precision
+                            ,a.numeric_scale
                             from information_schema.columns a
                             inner join information_schema.table_constraints b on b.constraint_name ='{0}_'||a.column_name||'_fkey'
                             union
                             select 
                             a.column_name
                             ,a.data_type
+                            ,a.character_maximum_length
                             ,a.is_nullable
                             ,''
+                            ,a.numeric_precision
+                            ,a.numeric_scale
                             from  information_schema.columns a
                             where a.table_schema='{1}' and a.table_name='{0}' and a.column_name not in (
 
@@ -76,18 +85,21 @@ namespace NMG.Core.Reader
                             {
                                 string columnName = sqlDataReader.GetString(0);
                                 string dataType = sqlDataReader.GetString(1);
-                                bool isNullable = sqlDataReader.GetString(2).Equals("YES",
+                                var characterMaxLenth = sqlDataReader["character_maximum_length"] as int?;
+                                var numericPrecision = sqlDataReader["numeric_precision"] as int?;
+                                var numericScale = sqlDataReader["numeric_scale"] as int?;
+                                bool isNullable = sqlDataReader.GetString(3).Equals("YES",
                                                                                     StringComparison.
                                                                                         CurrentCultureIgnoreCase);
                                 bool isPrimaryKey =
-                                    (!sqlDataReader.IsDBNull(3)
-                                         ? sqlDataReader.GetString(3).Equals(
+                                    (!sqlDataReader.IsDBNull(4)
+                                         ? sqlDataReader.GetString(4).Equals(
                                              NpgsqlConstraintType.PrimaryKey.ToString(),
                                              StringComparison.CurrentCultureIgnoreCase)
                                          : false);
                                 bool isForeignKey =
-                                    (!sqlDataReader.IsDBNull(3)
-                                         ? sqlDataReader.GetString(3).Equals(
+                                    (!sqlDataReader.IsDBNull(4)
+                                         ? sqlDataReader.GetString(4).Equals(
                                              NpgsqlConstraintType.ForeignKey.ToString(),
                                              StringComparison.CurrentCultureIgnoreCase)
                                          : false);
@@ -100,12 +112,12 @@ namespace NMG.Core.Reader
                                     DataType = dataType,
                                     IsNullable = isNullable,
                                     IsPrimaryKey = isPrimaryKey,
-                                    //IsPrimaryKey(selectedTableName.Name, columnName)
-                                    IsForeignKey = isForeignKey,                                    
-                                    // IsFK()
+                                    IsForeignKey = isForeignKey,
                                     MappedDataType =
-                                        m.MapFromDBType(ServerType.PostgreSQL, dataType, null, null, null).ToString(),
-                                    //DataLength = dataLength
+                                        m.MapFromDBType(ServerType.PostgreSQL, dataType, characterMaxLenth, numericPrecision, numericScale).ToString(),
+                                    DataLength = characterMaxLenth,
+                                    DataScale = numericScale,
+                                    DataPrecision = numericPrecision
                                 });
 
                                 table.Columns = columns;
