@@ -38,6 +38,7 @@ namespace NMG.Core.Reader
                             ,c.numeric_precision
                             ,c.numeric_scale
                             ,c.column_default
+                            ,c.udt_name
                             from information_schema.constraint_column_usage a
                             inner join information_schema.table_constraints b on a.constraint_name=b.constraint_name
                             inner join  information_schema.columns c on a.column_name=c.column_name and a.table_name=c.table_name
@@ -52,6 +53,7 @@ namespace NMG.Core.Reader
                             ,a.numeric_precision
                             ,a.numeric_scale
                             ,a.column_default
+                            ,a.udt_name
                             from information_schema.columns a
                             inner join information_schema.table_constraints b on b.constraint_name ='{0}_'||a.column_name||'_fkey'
                             union
@@ -64,6 +66,7 @@ namespace NMG.Core.Reader
                             ,a.numeric_precision
                             ,a.numeric_scale
                             ,a.column_default
+                            ,a.udt_name
                             from  information_schema.columns a
                             where a.table_schema='{1}' and a.table_name='{0}' and a.column_name not in (
 
@@ -84,7 +87,7 @@ namespace NMG.Core.Reader
                         while (sqlDataReader.Read())
                         {
                             string columnName = sqlDataReader.GetString(0);
-                            string dataType = sqlDataReader.GetString(1);
+                            string dataType = sqlDataReader["udt_name"] as string;
                             var characterMaxLenth = sqlDataReader["character_maximum_length"] as int?;
                             var numericPrecision = sqlDataReader["numeric_precision"] as int?;
                             var numericScale = sqlDataReader["numeric_scale"] as int?;

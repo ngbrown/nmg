@@ -90,6 +90,8 @@ namespace NMG.Core.Domain
         public bool IsUnique { get; set; }
         public bool IsIdentity { get; set; }
         public string DataType { get; set; }
+        // TODO: Add UnderlyingDataType property for databases with type inheritance, to map type well by underlying type and show child type in UI.
+        // public string UnderlyingDataType { get; set; }
         public int? DataLength { get; set; }
         public string MappedDataType { get; set; }
         public bool IsNullable { get; set; }

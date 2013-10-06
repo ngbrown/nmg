@@ -146,9 +146,63 @@ namespace NMG.Core
             return MapFromDBType(dataType, dataLength, dataPrecision, dataScale);
         }
 
+        /// <see cref="http://npgsql.projects.pgfoundry.org/docs/manual/UserManual.html"/>
         private Type MapFromPostgreDBType(string dataType, int? dataLength, int? dataPrecision, int? dataScale)
         {
-            return MapFromDBType(dataType, dataLength, dataPrecision, dataScale);
+            switch (dataType.ToUpperInvariant())
+            {
+                case "INT8":
+                    return typeof(Int64);
+
+                case "BOOL":
+                case "BIT":
+                    return typeof(Boolean);
+
+                case "BYTEA":
+                    return typeof(Byte[]);
+
+                case "DATE":
+                case "TIME":
+                case "TIMETZ":
+                case "TIMESTAMP":
+                case "TIMESTAMPTZ":
+                    return typeof(DateTime);
+
+                case "FLOAT8":
+                    return typeof(Double);
+
+                case "INT4":
+                    return typeof(Int32);
+
+                case "MONEY":
+                case "NUMERIC":
+                    return typeof(Decimal);
+
+                case "FLOAT4":
+                    return typeof(Single);
+
+                case "INT2":
+                    return typeof(Int16);
+
+                case "TEXT":
+                case "VARCHAR":
+                    return typeof(String);
+
+                case "INTERVAL":
+                    return typeof(TimeSpan);
+
+                case "INET":
+                    return typeof(System.Net.IPAddress);
+
+                case "UUID":
+                    return typeof(Guid);
+
+                case "ARRAY":
+                    return typeof(Array);
+
+                default:
+                    return typeof(string);
+            }
         }
 
         private Type MapFromSqliteDbType(string dataType, int? dataLength, int? dataPrecision, int? dataScale)
