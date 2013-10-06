@@ -132,10 +132,20 @@ namespace NMG.Core.Reader
                             table.Owner = owner;
                             table.PrimaryKey = DeterminePrimaryKeys(table);
 
-                            // Need to find the table name associated with the FK
+                            // Need to find reference informations associated with the FK
 						    foreach (var c in table.Columns)
 						    {
-						        c.ForeignKeyTableName = GetForeignKeyReferenceTableName(table.Name, c.Name);
+                                if (c.IsForeignKey)
+                                {
+                                    var reference = GetForeignKeyReference(table.Name, c.Name);
+
+                                    if (reference != null)
+                                    {
+                                        c.ConstraintName = reference.ConstraintName;
+                                        c.ForeignKeyTableName = reference.TableName;
+                                        c.ForeignKeyColumnName = reference.ColumnName;
+                                    }
+                                }
 						    }
                             table.ForeignKeys = DetermineForeignKeyReferences(table);
                             table.HasManyRelationships = DetermineHasManyRelationships(table);
@@ -270,13 +280,17 @@ a.table_schema='" + owner+"' and a.table_name='"+tablename+"' and a.column_name=
 
         public IList<ForeignKey> DetermineForeignKeyReferences(Table table)
         {
-            var foreignKeys = table.Columns.Where(x => x.IsForeignKey).Distinct()
-                                   .Select(c => new ForeignKey
-                                   {
-                                       Name = c.Name,
-                                       References = GetForeignKeyReferenceTableName(table.Name, c.Name),
-                                       Columns = DetermineColumnsForForeignKey(table.Columns, c.ConstraintName)
-                                   }).ToList();
+            var foreignKeys = (from c in table.Columns
+                               where c.IsForeignKey
+                               group c by new { c.ConstraintName, c.ForeignKeyTableName, c.IsNullable } into g
+                               select new ForeignKey
+                               {
+                                   Name = g.Key.ConstraintName,
+                                   IsNullable = g.Key.IsNullable,
+                                   References = g.Key.ForeignKeyTableName,
+                                   Columns = g.ToList(),
+                                   UniquePropertyName = g.Key.ForeignKeyTableName
+                               }).ToList();
 
             Table.SetUniqueNamesForForeignKeyProperties(foreignKeys);
 
@@ -297,7 +311,7 @@ a.table_schema='" + owner+"' and a.table_name='"+tablename+"' and a.column_name=
                     select c).ToList();
         }
 
-        private string GetForeignKeyReferenceTableName(string selectedTableName, string columnName)
+        private ForeignKeyReference GetForeignKeyReference(string selectedTableName, string columnName)
         {
             var conn = new Npgsql.NpgsqlConnection(connectionStr);
             conn.Open();
@@ -306,7 +320,7 @@ a.table_schema='" + owner+"' and a.table_name='"+tablename+"' and a.column_name=
                 NpgsqlCommand tableCommand = conn.CreateCommand();
                 tableCommand.CommandText = String.Format(
                     @"
-                        select pk.table_name
+                        select c.constraint_name, pk.table_name, pt.column_name
                         from information_schema.referential_constraints c
                         inner join information_schema.table_constraints fk on c.constraint_name = fk.constraint_name
                         inner join information_schema.table_constraints pk on c.unique_constraint_name = pk.constraint_name
@@ -319,9 +333,21 @@ a.table_schema='" + owner+"' and a.table_name='"+tablename+"' and a.column_name=
                         ) pt on pt.table_name = pk.table_name
                         where fk.table_name = '{0}' and cu.column_name = '{1}'",
                     selectedTableName, columnName);
-                object referencedTableName = tableCommand.ExecuteScalar();
+                var sqlDataReader = tableCommand.ExecuteReader();
 
-                return (string)referencedTableName;
+                if (sqlDataReader.HasRows)
+                {
+                    sqlDataReader.Read();
+                    
+                    return new ForeignKeyReference()
+                        {
+                            ConstraintName = sqlDataReader["constraint_name"] as string,
+                            TableName = sqlDataReader["table_name"] as string,
+                            ColumnName = sqlDataReader["column_name"] as string,
+                        };
+                }
+
+                return null;
             }
         }
 
@@ -374,6 +400,13 @@ a.table_schema='" + owner+"' and a.table_name='"+tablename+"' and a.column_name=
                     return hasManyRelationships;
                 }
             }
+        }
+
+        private class ForeignKeyReference
+        {
+            public string ConstraintName { get; set; }
+            public string TableName { get; set; }
+            public string ColumnName { get; set; }
         }
     }
 }
