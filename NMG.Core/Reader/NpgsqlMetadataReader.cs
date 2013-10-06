@@ -199,14 +199,36 @@ namespace NMG.Core.Reader
 
         public List<string> GetSequences(string owner)
         {
-            return new List<string>();
+            var result = new List<string>();
+            
+            using (var conn = new NpgsqlConnection(connectionStr))
+            {
+                conn.Open();
+
+                NpgsqlCommand command = conn.CreateCommand();
+                command.CommandText = String.Format(@"
+                    select sequence_name 
+                    from information_schema.sequences 
+                    where sequence_schema = '{0}'
+                    order by sequence_name", owner);
+
+                NpgsqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+                while (reader.Read())
+                {
+                    //result.Add(dataReader["sequence_name"] as string);
+                }
+            }
+            
+            return result;
         }
 
         public string GetSequences(string tablename, string owner, string column)
         {
+            string sequenceName = "";
+
             var conn = new NpgsqlConnection(connectionStr);
             conn.Open();
-            string tableName = "";
+            
             using (conn)
             {
                 NpgsqlCommand seqCommand = conn.CreateCommand();
@@ -215,20 +237,18 @@ namespace NMG.Core.Reader
                     b.sequence_name
                     from
                     information_schema.columns a
-                    inner join information_schema.sequences b on a.column_default like 'nextval(\''||b.sequence_name||'%'
+                    inner join information_schema.sequences b on a.column_default like 'nextval(\''' || b.sequence_name || '%'
                     where
                     a.table_schema='" + owner + "' and a.table_name='" + tablename + "' and a.column_name='" + column + "'";
                 NpgsqlDataReader seqReader = seqCommand.ExecuteReader(CommandBehavior.CloseConnection);
 
                 while (seqReader.Read())
                 {
-                    tableName = seqReader.GetString(0);
-
-                    // sequences.Add(tableName);
+                    sequenceName = seqReader.GetString(0);
                 }
             }
 
-            return tableName;
+            return sequenceName;
         }
 
         public List<string> GetSequences(List<Table> tables)
@@ -243,11 +263,12 @@ namespace NMG.Core.Reader
                 NpgsqlDataReader seqReader = seqCommand.ExecuteReader(CommandBehavior.CloseConnection);
                 while (seqReader.Read())
                 {
-                    string tableName = seqReader.GetString(0);
+                    string sequenceName = seqReader.GetString(0);
 
-                    sequences.Add(tableName);
+                    sequences.Add(sequenceName);
                 }
             }
+
             return sequences;
         }
 
