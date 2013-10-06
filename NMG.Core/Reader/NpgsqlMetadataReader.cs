@@ -1,37 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using NMG.Core.Domain;
 using Npgsql;
-using System.Data;
 
 namespace NMG.Core.Reader
 {
-    public class NpgsqlMetadataReader: IMetadataReader
+    public class NpgsqlMetadataReader : IMetadataReader
     {
-            private readonly string connectionStr;
+        private readonly string connectionStr;
 
-            public NpgsqlMetadataReader(string connectionStr)
+        public NpgsqlMetadataReader(string connectionStr)
         {
             this.connectionStr = connectionStr;
         }
 
+        #region IMetadataReader Members
 
-            #region IMetadataReader Members
-
-            public IList<Column> GetTableDetails(Table table, string owner)
+        public IList<Column> GetTableDetails(Table table, string owner)
+        {
+            var columns = new List<Column>();
+            var conn = new NpgsqlConnection(connectionStr);
+            conn.Open();
+            using (conn)
             {
-                var columns = new List<Column>();
-                var conn = new NpgsqlConnection(connectionStr);
-                conn.Open();
-                using (conn)
+                using (NpgsqlCommand tableDetailsCommand = conn.CreateCommand())
                 {
-                    using (NpgsqlCommand tableDetailsCommand = conn.CreateCommand())
-                    {
-                        
-
-                        tableDetailsCommand.CommandText = string.Format(@"select
+                    tableDetailsCommand.CommandText = string.Format(@"
+                            select
                             c.column_name
                             ,c.data_type
                             ,c.character_maximum_length
@@ -81,173 +79,179 @@ namespace NMG.Core.Reader
                             from information_schema.columns a
                             inner join information_schema.table_constraints b on b.constraint_name ='{0}_'||a.column_name||'_fkey')", table.Name, owner);
 
-
-                        using (NpgsqlDataReader sqlDataReader = tableDetailsCommand.ExecuteReader(CommandBehavior.Default))
+                    using (NpgsqlDataReader sqlDataReader = tableDetailsCommand.ExecuteReader(CommandBehavior.Default))
+                    {
+                        while (sqlDataReader.Read())
                         {
-                            while (sqlDataReader.Read())
+                            string columnName = sqlDataReader.GetString(0);
+                            string dataType = sqlDataReader.GetString(1);
+                            var characterMaxLenth = sqlDataReader["character_maximum_length"] as int?;
+                            var numericPrecision = sqlDataReader["numeric_precision"] as int?;
+                            var numericScale = sqlDataReader["numeric_scale"] as int?;
+                            var columnDefault = sqlDataReader["column_default"] as string;
+                            bool isNullable = sqlDataReader.GetString(3).Equals("YES",
+                                                                                StringComparison.
+                                                                                    CurrentCultureIgnoreCase);
+                            bool isPrimaryKey =
+                                (!sqlDataReader.IsDBNull(4)
+                                     ? sqlDataReader.GetString(4).Equals(
+                                         NpgsqlConstraintType.PrimaryKey.ToString(),
+                                         StringComparison.CurrentCultureIgnoreCase)
+                                     : false);
+                            bool isIdentity =
+                                (columnDefault != null && columnDefault.ToLower().Contains("nextval") && isPrimaryKey) ? true : false;
+                            bool isForeignKey =
+                                (!sqlDataReader.IsDBNull(4)
+                                     ? sqlDataReader.GetString(4).Equals(
+                                         NpgsqlConstraintType.ForeignKey.ToString(),
+                                         StringComparison.CurrentCultureIgnoreCase)
+                                     : false);
+
+                            var m = new DataTypeMapper();
+
+                            columns.Add(new Column
                             {
-                                string columnName = sqlDataReader.GetString(0);
-                                string dataType = sqlDataReader.GetString(1);
-                                var characterMaxLenth = sqlDataReader["character_maximum_length"] as int?;
-                                var numericPrecision = sqlDataReader["numeric_precision"] as int?;
-                                var numericScale = sqlDataReader["numeric_scale"] as int?;
-                                var columnDefault = sqlDataReader["column_default"] as string;
-                                bool isNullable = sqlDataReader.GetString(3).Equals("YES",
-                                                                                    StringComparison.
-                                                                                        CurrentCultureIgnoreCase);
-                                bool isPrimaryKey =
-                                    (!sqlDataReader.IsDBNull(4)
-                                         ? sqlDataReader.GetString(4).Equals(
-                                             NpgsqlConstraintType.PrimaryKey.ToString(),
-                                             StringComparison.CurrentCultureIgnoreCase)
-                                         : false);
-                                bool isIdentity =
-                                    (columnDefault != null && columnDefault.ToLower().Contains("nextval") && isPrimaryKey) ? true : false;
-                                bool isForeignKey =
-                                    (!sqlDataReader.IsDBNull(4)
-                                         ? sqlDataReader.GetString(4).Equals(
-                                             NpgsqlConstraintType.ForeignKey.ToString(),
-                                             StringComparison.CurrentCultureIgnoreCase)
-                                         : false);
+                                Name = columnName,
+                                DataType = dataType,
+                                IsNullable = isNullable,
+                                IsPrimaryKey = isPrimaryKey,
+                                IsIdentity = isIdentity,
+                                IsForeignKey = isForeignKey,
+                                MappedDataType =
+                                    m.MapFromDBType(ServerType.PostgreSQL, dataType, characterMaxLenth, numericPrecision, numericScale).ToString(),
+                                DataLength = characterMaxLenth,
+                                DataScale = numericScale,
+                                DataPrecision = numericPrecision
+                            });
 
-                                var m = new DataTypeMapper();
-
-                                columns.Add(new Column
-                                {
-                                    Name = columnName,
-                                    DataType = dataType,
-                                    IsNullable = isNullable,
-                                    IsPrimaryKey = isPrimaryKey,
-                                    IsIdentity = isIdentity,
-                                    IsForeignKey = isForeignKey,
-                                    MappedDataType =
-                                        m.MapFromDBType(ServerType.PostgreSQL, dataType, characterMaxLenth, numericPrecision, numericScale).ToString(),
-                                    DataLength = characterMaxLenth,
-                                    DataScale = numericScale,
-                                    DataPrecision = numericPrecision
-                                });
-
-                                table.Columns = columns;
-                            }
-                            table.Owner = owner;
-                            table.PrimaryKey = DeterminePrimaryKeys(table);
-
-                            // Need to find reference informations associated with the FK
-						    foreach (var c in table.Columns)
-						    {
-                                if (c.IsForeignKey)
-                                {
-                                    var reference = GetForeignKeyReference(table.Name, c.Name);
-
-                                    if (reference != null)
-                                    {
-                                        c.ConstraintName = reference.ConstraintName;
-                                        c.ForeignKeyTableName = reference.TableName;
-                                        c.ForeignKeyColumnName = reference.ColumnName;
-                                    }
-                                }
-						    }
-                            table.ForeignKeys = DetermineForeignKeyReferences(table);
-                            table.HasManyRelationships = DetermineHasManyRelationships(table);
+                            table.Columns = columns;
                         }
+                        table.Owner = owner;
+                        table.PrimaryKey = DeterminePrimaryKeys(table);
+
+                        // Need to find reference informations associated with the FK
+                        foreach (var c in table.Columns)
+                        {
+                            if (c.IsForeignKey)
+                            {
+                                var reference = GetForeignKeyReference(table.Name, c.Name);
+
+                                if (reference != null)
+                                {
+                                    c.ConstraintName = reference.ConstraintName;
+                                    c.ForeignKeyTableName = reference.TableName;
+                                    c.ForeignKeyColumnName = reference.ColumnName;
+                                }
+                            }
+                        }
+                        table.ForeignKeys = DetermineForeignKeyReferences(table);
+                        table.HasManyRelationships = DetermineHasManyRelationships(table);
                     }
                 }
-                return columns;
             }
 
-            public IList<string> GetOwners()
+            return columns;
+        }
+
+        public IList<string> GetOwners()
+        {
+            var owners = new List<string>();
+            var conn = new NpgsqlConnection(connectionStr);
+            conn.Open();
+            using (conn)
             {
-                var owners = new List<string>();
-                var conn = new NpgsqlConnection(connectionStr);
-                conn.Open();
-                using (conn)
-                {
-                    var tableCommand = conn.CreateCommand();
-                    tableCommand.CommandText = @"select distinct table_schema from information_schema.tables
+                var tableCommand = conn.CreateCommand();
+                tableCommand.CommandText = @"select distinct table_schema from information_schema.tables
                                                 union
                                                 select schema_name from information_schema.schemata
                                                 ";
-                    var sqlDataReader = tableCommand.ExecuteReader(CommandBehavior.CloseConnection);
-                    while (sqlDataReader.Read())
-                    {
-                        var ownerName = sqlDataReader.GetString(0);
-                        owners.Add(ownerName);
-                    }
-                }
-
-                return owners;
-            }
-
-            public List<Table> GetTables(string owner)
-            {
-                var tables = new List<Table>();
-                var conn = new NpgsqlConnection(connectionStr);
-                conn.Open();
-                using (conn)
+                var sqlDataReader = tableCommand.ExecuteReader(CommandBehavior.CloseConnection);
+                while (sqlDataReader.Read())
                 {
-                    var tableCommand = conn.CreateCommand();
-                    tableCommand.CommandText = String.Format("select table_name from information_schema.tables where table_type like 'BASE TABLE' and TABLE_SCHEMA = '{0}'", owner);
-                    var sqlDataReader = tableCommand.ExecuteReader(CommandBehavior.CloseConnection);
-                    while (sqlDataReader.Read())
-                    {
-                        var tableName = sqlDataReader.GetString(0);
-                        tables.Add(new Table { Name = tableName });
-                    }
+                    var ownerName = sqlDataReader.GetString(0);
+                    owners.Add(ownerName);
                 }
-                tables.Sort((x, y) => x.Name.CompareTo(y.Name));
-                return tables;
-            }
-            public List<string> GetSequences(string owner)
-            {
-                return null;
-            }
-            public string GetSequences(string tablename,string owner,string column)
-            {                
-                var conn = new NpgsqlConnection(connectionStr);
-                conn.Open();
-                string tableName = "";
-                using (conn)
-                {
-                    NpgsqlCommand seqCommand = conn.CreateCommand();
-                    seqCommand.CommandText = @"select 
-b.sequence_name
-from
-information_schema.columns a
-inner join information_schema.sequences b on a.column_default like 'nextval(\''||b.sequence_name||'%'
-where
-a.table_schema='" + owner+"' and a.table_name='"+tablename+"' and a.column_name='"+column+"'";
-                    NpgsqlDataReader seqReader = seqCommand.ExecuteReader(CommandBehavior.CloseConnection);
-                   
-                    while (seqReader.Read())
-                    {
-                         tableName = seqReader.GetString(0);
-
-                       // sequences.Add(tableName);
-                    }
-                }
-                return tableName;
-            }
-            public List<string> GetSequences(List<Table> tables)
-            {
-                var sequences = new List<string>();
-                var conn = new NpgsqlConnection(connectionStr);
-                conn.Open();
-                using (conn)
-                {
-                    NpgsqlCommand seqCommand = conn.CreateCommand();
-                    seqCommand.CommandText = "select sequence_name from information_schema.sequences";
-                    NpgsqlDataReader seqReader = seqCommand.ExecuteReader(CommandBehavior.CloseConnection);
-                    while (seqReader.Read())
-                    {
-                        string tableName = seqReader.GetString(0);
-                        
-                        sequences.Add(tableName);
-                    }
-                }
-                return sequences;
             }
 
-            #endregion
+            return owners;
+        }
+
+        public List<Table> GetTables(string owner)
+        {
+            var tables = new List<Table>();
+            var conn = new NpgsqlConnection(connectionStr);
+            conn.Open();
+            using (conn)
+            {
+                var tableCommand = conn.CreateCommand();
+                tableCommand.CommandText = String.Format("select table_name from information_schema.tables where table_type like 'BASE TABLE' and TABLE_SCHEMA = '{0}'", owner);
+                var sqlDataReader = tableCommand.ExecuteReader(CommandBehavior.CloseConnection);
+                while (sqlDataReader.Read())
+                {
+                    var tableName = sqlDataReader.GetString(0);
+                    tables.Add(new Table { Name = tableName });
+                }
+            }
+            tables.Sort((x, y) => x.Name.CompareTo(y.Name));
+
+            return tables;
+        }
+
+        public List<string> GetSequences(string owner)
+        {
+            return new List<string>();
+        }
+
+        public string GetSequences(string tablename, string owner, string column)
+        {
+            var conn = new NpgsqlConnection(connectionStr);
+            conn.Open();
+            string tableName = "";
+            using (conn)
+            {
+                NpgsqlCommand seqCommand = conn.CreateCommand();
+                seqCommand.CommandText = @"
+                    select 
+                    b.sequence_name
+                    from
+                    information_schema.columns a
+                    inner join information_schema.sequences b on a.column_default like 'nextval(\''||b.sequence_name||'%'
+                    where
+                    a.table_schema='" + owner + "' and a.table_name='" + tablename + "' and a.column_name='" + column + "'";
+                NpgsqlDataReader seqReader = seqCommand.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (seqReader.Read())
+                {
+                    tableName = seqReader.GetString(0);
+
+                    // sequences.Add(tableName);
+                }
+            }
+
+            return tableName;
+        }
+
+        public List<string> GetSequences(List<Table> tables)
+        {
+            var sequences = new List<string>();
+            var conn = new NpgsqlConnection(connectionStr);
+            conn.Open();
+            using (conn)
+            {
+                NpgsqlCommand seqCommand = conn.CreateCommand();
+                seqCommand.CommandText = "select sequence_name from information_schema.sequences";
+                NpgsqlDataReader seqReader = seqCommand.ExecuteReader(CommandBehavior.CloseConnection);
+                while (seqReader.Read())
+                {
+                    string tableName = seqReader.GetString(0);
+
+                    sequences.Add(tableName);
+                }
+            }
+            return sequences;
+        }
+
+        #endregion
 
         public PrimaryKey DeterminePrimaryKeys(Table table)
         {
@@ -271,7 +275,7 @@ a.table_schema='" + owner+"' and a.table_name='"+tablename+"' and a.column_name=
                     Type = PrimaryKeyType.CompositeKey,
                     Columns = primaryKeys
                 };
- 
+
                 return key;
             }
 
@@ -338,7 +342,7 @@ a.table_schema='" + owner+"' and a.table_name='"+tablename+"' and a.column_name=
                 if (sqlDataReader.HasRows)
                 {
                     sqlDataReader.Read();
-                    
+
                     return new ForeignKeyReference()
                         {
                             ConstraintName = sqlDataReader["constraint_name"] as string,
@@ -350,8 +354,6 @@ a.table_schema='" + owner+"' and a.table_name='"+tablename+"' and a.column_name=
                 return null;
             }
         }
-
-
 
         // http://blog.sqlauthority.com/2006/11/01/sql-server-query-to-display-foreign-key-relationships-and-name-of-the-constraint-for-each-table-in-database/
         private IList<HasMany> DetermineHasManyRelationships(Table table)
