@@ -39,6 +39,7 @@ namespace NMG.Core.Reader
                             ,b.constraint_type as type
                             ,c.numeric_precision
                             ,c.numeric_scale
+                            ,c.column_default
                             from information_schema.constraint_column_usage a
                             inner join information_schema.table_constraints b on a.constraint_name=b.constraint_name
                             inner join  information_schema.columns c on a.column_name=c.column_name and a.table_name=c.table_name
@@ -52,6 +53,7 @@ namespace NMG.Core.Reader
                             ,b.constraint_type as type
                             ,a.numeric_precision
                             ,a.numeric_scale
+                            ,a.column_default
                             from information_schema.columns a
                             inner join information_schema.table_constraints b on b.constraint_name ='{0}_'||a.column_name||'_fkey'
                             union
@@ -63,6 +65,7 @@ namespace NMG.Core.Reader
                             ,''
                             ,a.numeric_precision
                             ,a.numeric_scale
+                            ,a.column_default
                             from  information_schema.columns a
                             where a.table_schema='{1}' and a.table_name='{0}' and a.column_name not in (
 
@@ -88,6 +91,7 @@ namespace NMG.Core.Reader
                                 var characterMaxLenth = sqlDataReader["character_maximum_length"] as int?;
                                 var numericPrecision = sqlDataReader["numeric_precision"] as int?;
                                 var numericScale = sqlDataReader["numeric_scale"] as int?;
+                                var columnDefault = sqlDataReader["column_default"] as string;
                                 bool isNullable = sqlDataReader.GetString(3).Equals("YES",
                                                                                     StringComparison.
                                                                                         CurrentCultureIgnoreCase);
@@ -97,6 +101,8 @@ namespace NMG.Core.Reader
                                              NpgsqlConstraintType.PrimaryKey.ToString(),
                                              StringComparison.CurrentCultureIgnoreCase)
                                          : false);
+                                bool isIdentity =
+                                    (columnDefault != null && columnDefault.ToLower().Contains("nextval") && isPrimaryKey) ? true : false;
                                 bool isForeignKey =
                                     (!sqlDataReader.IsDBNull(4)
                                          ? sqlDataReader.GetString(4).Equals(
@@ -112,6 +118,7 @@ namespace NMG.Core.Reader
                                     DataType = dataType,
                                     IsNullable = isNullable,
                                     IsPrimaryKey = isPrimaryKey,
+                                    IsIdentity = isIdentity,
                                     IsForeignKey = isForeignKey,
                                     MappedDataType =
                                         m.MapFromDBType(ServerType.PostgreSQL, dataType, characterMaxLenth, numericPrecision, numericScale).ToString(),
