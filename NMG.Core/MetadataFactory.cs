@@ -23,6 +23,8 @@ namespace NMG.Core
                     return new IngresMetadataReader(connectionStr);
                 case ServerType.CUBRID:
                     return new CUBRIDMetadataReader(connectionStr);
+                case ServerType.ODBC:
+                    return new ODBCMetadataReader(connectionStr);
                 default:
                     return new NpgsqlMetadataReader(connectionStr);
             }
