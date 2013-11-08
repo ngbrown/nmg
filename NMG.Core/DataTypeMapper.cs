@@ -41,8 +41,7 @@ namespace NMG.Core
             return false;
         }
 
-        public Type MapFromDBType(ServerType serverType, string dataType, int? dataLength, int? dataPrecision,
-                                  int? dataScale)
+        public Type MapFromDBType(ServerType serverType, string dataType, int? dataLength, int? dataPrecision,int? dataScale)
         {
             switch (serverType)
             {
@@ -60,7 +59,14 @@ namespace NMG.Core
                     return MapFromIngresDbType(dataType, dataLength, dataPrecision, dataScale);
                 case ServerType.CUBRID:
                     return MapFromCUBRIDDBType(dataType, dataLength, dataPrecision, dataScale);
+                case ServerType.ODBC:
+                    return MapFromODBCType(dataType, dataLength, dataPrecision, dataScale);
             }
+            return MapFromDBType(dataType, dataLength, dataPrecision, dataScale);
+        }
+
+        private Type MapFromODBCType(string dataType, int? dataLength, int? dataPrecision, int? dataScale)
+        {
             return MapFromDBType(dataType, dataLength, dataPrecision, dataScale);
         }
 

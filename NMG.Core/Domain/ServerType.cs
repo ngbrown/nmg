@@ -9,6 +9,7 @@ namespace NMG.Core.Domain
         SQLite,
         Sybase,
         Ingres,
-        CUBRID
+        CUBRID,
+        ODBC
     }
 }

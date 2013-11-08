@@ -115,6 +115,8 @@
     <Compile Include="Reader\MysqlMetadataReader.cs" />
     <Compile Include="Reader\NpgsqlConstraintType.cs" />
     <Compile Include="Reader\NpgsqlMetadataReader.cs" />
+    <Compile Include="Reader\ODBCConstraintType.cs" />
+    <Compile Include="Reader\ODBCMetadataReader.cs" />
     <Compile Include="Reader\OracleConstraintType.cs" />
     <Compile Include="Reader\OracleMetadataReader.cs" />
     <Compile Include="Reader\SqliteMetadataReader.cs" />
