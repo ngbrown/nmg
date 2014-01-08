@@ -70,12 +70,12 @@ namespace NMG.Core.Generator
                         {
                             keyProperty = xmldoc.CreateElement("key-many-to-one");
                             keyProperty.SetAttribute("name", Formatter.FormatSingular(key.ForeignKeyTableName));
-                            keyProperty.SetAttribute("column", key.Name);
+                            keyProperty.SetAttribute("column", '`' + key.Name + '`');
                         } else
                         {
                             keyProperty = xmldoc.CreateElement("key-property");
                             keyProperty.SetAttribute("name", Formatter.FormatText(key.Name));
-                            keyProperty.SetAttribute("column", key.Name);
+                            keyProperty.SetAttribute("column", '`' + key.Name + '`');
                         }
                         idElement.AppendChild(keyProperty);
                         classElement.AppendChild(idElement);
@@ -85,7 +85,7 @@ namespace NMG.Core.Generator
                     XmlElement keyProperty = xmldoc.CreateElement("id");
                     Column primaryKeyColum = primaryKey.Columns.Single();
                     keyProperty.SetAttribute("name", Formatter.FormatText(primaryKeyColum.Name));
-                    keyProperty.SetAttribute("column", primaryKeyColum.Name); //If ID Column is attribute.
+                    keyProperty.SetAttribute("column", '`' + primaryKeyColum.Name + '`'); //If ID Column is attribute.
                     if (primaryKeyColum.IsIdentity)
                     {
                         XmlElement generatorElement = xmldoc.CreateElement("generator");
@@ -106,7 +106,7 @@ namespace NMG.Core.Generator
                     element.SetAttribute("name", Formatter.FormatText(column.Name));
 
                 XmlElement columnElement = xmldoc.CreateElement("column");
-                columnElement.SetAttribute("name", column.Name);
+                columnElement.SetAttribute("name", '`' + column.Name + '`');
                 columnElement.SetAttribute("sql-type", column.DataType);
                 columnElement.SetAttribute("not-null", (column.IsNullable ? "false" : "true"));
                 if (column.IsUnique)
@@ -117,20 +117,21 @@ namespace NMG.Core.Generator
                 classElement.AppendChild(element);
             }
 
-
-            foreach (var hasMany in Table.HasManyRelationships)
+            if (applicationPreferences.IncludeHasMany)
             {
-                XmlElement bagElement = applicationPreferences.ForeignEntityCollectionType.Contains("Set") ? xmldoc.CreateElement("set") : xmldoc.CreateElement("bag");
-                bagElement.SetAttribute("name", Formatter.FormatPlural(hasMany.Reference));
-                if (applicationPreferences.IncludeHasMany)
-                    bagElement.SetAttribute("inverse", "true");
-                classElement.AppendChild(bagElement);
-                XmlElement keyElement = xmldoc.CreateElement("key");
-                keyElement.SetAttribute("column", hasMany.ReferenceColumn);
-                bagElement.AppendChild(keyElement);
-                XmlElement oneToManyElement = xmldoc.CreateElement("one-to-many");
-                oneToManyElement.SetAttribute("class", Formatter.FormatSingular(hasMany.Reference));
-                bagElement.AppendChild(oneToManyElement);
+                foreach (var hasMany in Table.HasManyRelationships)
+                {
+                    XmlElement bagElement = applicationPreferences.ForeignEntityCollectionType.Contains("Set") ? xmldoc.CreateElement("set") : xmldoc.CreateElement("bag");
+                    bagElement.SetAttribute("name", Formatter.FormatPlural(hasMany.Reference));
+                    //bagElement.SetAttribute("inverse", "true");
+                    classElement.AppendChild(bagElement);
+                    XmlElement keyElement = xmldoc.CreateElement("key");
+                    keyElement.SetAttribute("column", '`' + hasMany.ReferenceColumn + '`');
+                    bagElement.AppendChild(keyElement);
+                    XmlElement oneToManyElement = xmldoc.CreateElement("one-to-many");
+                    oneToManyElement.SetAttribute("class", Formatter.FormatSingular(hasMany.Reference));
+                    bagElement.AppendChild(oneToManyElement);
+                }
             }
 
             return xmldoc;
