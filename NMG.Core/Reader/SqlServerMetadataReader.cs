@@ -32,13 +32,13 @@ namespace NMG.Core.Reader
                             @"SELECT distinct c.column_name, c.data_type, c.is_nullable, tc.constraint_type, convert(int,c.numeric_precision) numeric_precision, c.numeric_scale, c.character_maximum_length, c.table_name, c.ordinal_position, tc.constraint_name,
        columnproperty(object_id(c.table_schema + '.' + c.table_name), c.column_name,'IsIdentity') IsIdentity, 
        (SELECT CASE WHEN count(1) = 0 THEN 0 ELSE 1 END 
-       FROM information_schema.table_constraints x 
-       INNER JOIN information_schema.constraint_column_usage ccux ON c.table_name = ccux.table_name and c.column_name = ccux.column_name and c.table_schema = ccux.table_schema
+       FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS x 
+       INNER JOIN INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE ccux ON c.table_name = ccux.table_name and c.column_name = ccux.column_name and c.table_schema = ccux.table_schema
        WHERE x.constraint_type = 'UNIQUE' and x.table_schema = ccux.table_schema and x.constraint_name = ccux.constraint_name) IsUnique
-from information_schema.columns c
+from INFORMATION_SCHEMA.COLUMNS c
 	left outer join (
-		information_schema.constraint_column_usage ccu
-		join information_schema.table_constraints tc on (
+		INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE ccu
+		join INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc on (
 			tc.table_schema = ccu.table_schema
 			and tc.constraint_name = ccu.constraint_name
 			and NOT tc.constraint_type IN ('CHECK','UNIQUE')
@@ -144,7 +144,7 @@ from information_schema.columns c
 			try {
 				using (conn) {
 					var tableCommand = conn.CreateCommand();
-					tableCommand.CommandText = String.Format("select table_name from information_schema.tables where table_type in ('BASE TABLE','VIEW') AND TABLE_SCHEMA = '{0}'", owner);
+                    tableCommand.CommandText = String.Format("select table_name from INFORMATION_SCHEMA.TABLES where table_type in ('BASE TABLE','VIEW') AND TABLE_SCHEMA = '{0}'", owner);
 					var sqlDataReader = tableCommand.ExecuteReader(CommandBehavior.CloseConnection);
 					while (sqlDataReader.Read()) {
 						var tableName = sqlDataReader.GetString(0);
