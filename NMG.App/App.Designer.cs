@@ -73,12 +73,14 @@ namespace NHibernateMappingGenerator
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.domainCodeFastColoredTextBox = new FastColoredTextBoxNS.FastColoredTextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.txtOutput = new System.Windows.Forms.TextBox();
             this.cancelButton = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.entityNameTextBox = new System.Windows.Forms.TextBox();
             this.domainFolderTextBox = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.domainFolderSelectButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.namespaceMapTextBox = new System.Windows.Forms.TextBox();
@@ -87,6 +89,7 @@ namespace NHibernateMappingGenerator
             this.pOracleOnlyOptions = new System.Windows.Forms.Panel();
             this.connectionButton = new System.Windows.Forms.Button();
             this.advanceSettingsTabPage = new System.Windows.Forms.TabPage();
+            this.chkDontMapWithoutPK = new System.Windows.Forms.CheckBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.removeFieldPrefixButton = new System.Windows.Forms.Button();
             this.addFieldPrefixButton = new System.Windows.Forms.Button();
@@ -118,6 +121,7 @@ namespace NHibernateMappingGenerator
             this.noValidationRadioButton = new System.Windows.Forms.RadioButton();
             this.nhibernateValidationRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.entityFrameworkRadionBtn = new System.Windows.Forms.RadioButton();
             this.castleMappingOption = new System.Windows.Forms.RadioButton();
             this.fluentMappingOption = new System.Windows.Forms.RadioButton();
             this.hbmMappingOption = new System.Windows.Forms.RadioButton();
@@ -136,7 +140,6 @@ namespace NHibernateMappingGenerator
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.entityFrameworkRadionBtn = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dbTableDetailsGridView)).BeginInit();
             this.mainTabControl.SuspendLayout();
             this.basicSettingsTabPage.SuspendLayout();
@@ -547,6 +550,7 @@ namespace NHibernateMappingGenerator
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.txtOutput);
             this.groupBox5.Controls.Add(this.cancelButton);
             this.groupBox5.Controls.Add(this.label9);
             this.groupBox5.Controls.Add(this.label8);
@@ -554,6 +558,7 @@ namespace NHibernateMappingGenerator
             this.groupBox5.Controls.Add(this.entityNameTextBox);
             this.groupBox5.Controls.Add(this.domainFolderTextBox);
             this.groupBox5.Controls.Add(this.folderTextBox);
+            this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Controls.Add(this.domainFolderSelectButton);
             this.groupBox5.Controls.Add(this.generateAllBtn);
@@ -571,6 +576,18 @@ namespace NHibernateMappingGenerator
             this.groupBox5.Size = new System.Drawing.Size(1159, 239);
             this.groupBox5.TabIndex = 20;
             this.groupBox5.TabStop = false;
+            // 
+            // txtOutput
+            // 
+            this.txtOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtOutput.Location = new System.Drawing.Point(721, 39);
+            this.txtOutput.Multiline = true;
+            this.txtOutput.Name = "txtOutput";
+            this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtOutput.Size = new System.Drawing.Size(431, 189);
+            this.txtOutput.TabIndex = 23;
             // 
             // cancelButton
             // 
@@ -623,6 +640,15 @@ namespace NHibernateMappingGenerator
             this.domainFolderTextBox.Size = new System.Drawing.Size(486, 20);
             this.domainFolderTextBox.TabIndex = 7;
             this.domainFolderTextBox.Text = "c:\\NHibernate Mapping File Generator";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(718, 23);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(39, 13);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "Output";
             // 
             // domainFolderSelectButton
             // 
@@ -698,6 +724,7 @@ namespace NHibernateMappingGenerator
             // 
             // advanceSettingsTabPage
             // 
+            this.advanceSettingsTabPage.Controls.Add(this.chkDontMapWithoutPK);
             this.advanceSettingsTabPage.Controls.Add(this.groupBox10);
             this.advanceSettingsTabPage.Controls.Add(this.groupBox9);
             this.advanceSettingsTabPage.Controls.Add(this.groupBox8);
@@ -713,6 +740,16 @@ namespace NHibernateMappingGenerator
             this.advanceSettingsTabPage.TabIndex = 2;
             this.advanceSettingsTabPage.Text = "Preferences";
             this.advanceSettingsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // chkDontMapWithoutPK
+            // 
+            this.chkDontMapWithoutPK.AutoSize = true;
+            this.chkDontMapWithoutPK.Location = new System.Drawing.Point(12, 424);
+            this.chkDontMapWithoutPK.Name = "chkDontMapWithoutPK";
+            this.chkDontMapWithoutPK.Size = new System.Drawing.Size(210, 17);
+            this.chkDontMapWithoutPK.TabIndex = 9;
+            this.chkDontMapWithoutPK.Text = "Do not map entities without primary key";
+            this.chkDontMapWithoutPK.UseVisualStyleBackColor = true;
             // 
             // groupBox10
             // 
@@ -1042,6 +1079,17 @@ namespace NHibernateMappingGenerator
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Mapping Style";
             // 
+            // entityFrameworkRadionBtn
+            // 
+            this.entityFrameworkRadionBtn.AutoSize = true;
+            this.entityFrameworkRadionBtn.Location = new System.Drawing.Point(6, 109);
+            this.entityFrameworkRadionBtn.Name = "entityFrameworkRadionBtn";
+            this.entityFrameworkRadionBtn.Size = new System.Drawing.Size(106, 17);
+            this.entityFrameworkRadionBtn.TabIndex = 11;
+            this.entityFrameworkRadionBtn.TabStop = true;
+            this.entityFrameworkRadionBtn.Text = "Entity Framework";
+            this.entityFrameworkRadionBtn.UseVisualStyleBackColor = true;
+            // 
             // castleMappingOption
             // 
             this.castleMappingOption.AutoSize = true;
@@ -1224,7 +1272,7 @@ namespace NHibernateMappingGenerator
             this.toolStripStatusLabel.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
             this.toolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripStatusLabel.ForeColor = System.Drawing.Color.Red;
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(856, 17);
             this.toolStripStatusLabel.Spring = true;
             this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1234,17 +1282,6 @@ namespace NHibernateMappingGenerator
             this.toolStripProgressBar1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(300, 16);
-            // 
-            // entityFrameworkRadionBtn
-            // 
-            this.entityFrameworkRadionBtn.AutoSize = true;
-            this.entityFrameworkRadionBtn.Location = new System.Drawing.Point(6, 109);
-            this.entityFrameworkRadionBtn.Name = "entityFrameworkRadionBtn";
-            this.entityFrameworkRadionBtn.Size = new System.Drawing.Size(106, 17);
-            this.entityFrameworkRadionBtn.TabIndex = 11;
-            this.entityFrameworkRadionBtn.TabStop = true;
-            this.entityFrameworkRadionBtn.Text = "Entity Framework";
-            this.entityFrameworkRadionBtn.UseVisualStyleBackColor = true;
             // 
             // App
             // 
@@ -1279,6 +1316,7 @@ namespace NHibernateMappingGenerator
             this.pOracleOnlyOptions.ResumeLayout(false);
             this.pOracleOnlyOptions.PerformLayout();
             this.advanceSettingsTabPage.ResumeLayout(false);
+            this.advanceSettingsTabPage.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.groupBox9.ResumeLayout(false);
@@ -1408,6 +1446,9 @@ namespace NHibernateMappingGenerator
         private CheckBox EnableInflectionsCheckBox;
         private CheckBox nameAsForeignTableCheckBox;
         private RadioButton entityFrameworkRadionBtn;
+        private CheckBox chkDontMapWithoutPK;
+        private TextBox txtOutput;
+        private Label label10;
     }
 }
 

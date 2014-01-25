@@ -594,6 +594,7 @@ namespace NHibernateMappingGenerator
 
         private void GenerateAllClicked(object sender, EventArgs e)
         {
+            txtOutput.Clear();
             toolStripStatusLabel.Text = string.Empty;
             var items = tablesListBox.Items;
             if (items.Count == 0)
@@ -654,6 +655,18 @@ namespace NHibernateMappingGenerator
                     name = ownersComboBox.SelectedItem.ToString();
                 }
                 metadataReader.GetTableDetails(table, name);
+                if (chkDontMapWithoutPK.Checked)
+                {
+                    if (table.PrimaryKey == null || !table.PrimaryKey.Columns.Any())
+                    {
+                        txtOutput.Invoke(new MethodInvoker(delegate
+                        {
+                            txtOutput.AppendText(Environment.NewLine + string.Format("warning: Table {0} was skipped because it has no primary key.", table.Name));
+                        }));
+                        return;
+                    }
+                }
+
                 Generate(table, true, appSettings);
             });
         }
