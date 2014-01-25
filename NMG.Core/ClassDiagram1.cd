@@ -1,0 +1,709 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NMG.Core.ApplicationPreferences" Collapsed="true">
+    <Position X="26.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIJICIAAAACAAAAAoCACAAAAACIRBOACgY8AKCA=</HashCode>
+      <FileName>ApplicationPreferences.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.DataTypeMapper" Collapsed="true">
+    <Position X="36.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAQAgAABCAAAQAAABIAAAAAAAACAAAA=</HashCode>
+      <FileName>DataTypeMapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.MetadataFactory" Collapsed="true">
+    <Position X="33.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetadataFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.ByCode.DBColumnMapper" Collapsed="true">
+    <Position X="26.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQBCAABgEAAAAAAEAAAAAAQAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>ByCode\DBColumnMapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Domain.ColumnDetail" Collapsed="true">
+    <Position X="36.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAFAAABAAICACCAAABCAAAAABAAAAAAAAAAAABAIAA=</HashCode>
+      <FileName>Domain\ColumnDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Domain.ColumnDetails" Collapsed="true">
+    <Position X="38.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\ColumnDetails.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Domain.DotNetTypes" Collapsed="true">
+    <Position X="28" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\DotNetTypes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Domain.Table" Collapsed="true">
+    <Position X="29.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAACAgAAAAAAEAAAAAAQAAAAAAAAIAAAAAAgAgAA=</HashCode>
+      <FileName>Domain\Table.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Domain.HasMany" Collapsed="true">
+    <Position X="35" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAACCCAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Table.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Domain.Column" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="35" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAEQAABAAIAAACAoAACAAQAgBKAAAgAAAAAAAAAIAA=</HashCode>
+      <FileName>Domain\Table.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NMG.Core.Domain.AbstractPrimaryKey" Collapsed="true">
+    <Position X="8.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Domain\Table.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NMG.Core.Domain.PrimaryKey" Collapsed="true">
+    <Position X="36.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAACAAAAAAAAAAAAAAAAAAAQAAAAgAAAA=</HashCode>
+      <FileName>Domain\Table.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Domain.CompositeKey" Collapsed="true">
+    <Position X="8.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Table.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Domain.ForeignKey" Collapsed="true">
+    <Position X="33.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAACQAAAAQAAAAAAAAAAgAIAA=</HashCode>
+      <FileName>Domain\Table.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Fluent.Constants" Collapsed="true">
+    <Position X="26.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Fluent\Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Fluent.DBColumnMapper" Collapsed="true">
+    <Position X="38.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Fluent\DBColumnMapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.AbstractCodeGenerator" Collapsed="true">
+    <Position X="4.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEEAAAAAgIAAAIAAgKAAAAAAAEAAgAAAAAAAE=</HashCode>
+      <FileName>Generator\AbstractCodeGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.AbstractGenerator" Collapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAEAIAQEAAAAAEAEABBAQIAGAACAA=</HashCode>
+      <FileName>Generator\AbstractGenerator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NMG.Core.Generator.ByCodeGenerator" Collapsed="true">
+    <Position X="5.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAACAAAABEAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generator\ByCodeGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.CastleGenerator" Collapsed="true">
+    <Position X="10.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAEAAIAAAKAAAAAEAEAAgAAEAAAAA=</HashCode>
+      <FileName>Generator\CastleGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.CodeGenerationHelper" Collapsed="true">
+    <Position X="33.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAgAAAAAAAAQAAAhACAABAAAAAAAIAA=</HashCode>
+      <FileName>Generator\CodeGenerationHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.CodeGenerator" Collapsed="true">
+    <Position X="12.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAABAAEQAAAAAgAAQAIAAAKAAAABEAFAAgBAEAAAwA=</HashCode>
+      <FileName>Generator\CodeGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.ContractGenerator" Collapsed="true">
+    <Position X="8" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAABAAAAAAAACAAAABEAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generator\ContractGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.CUBRIDMappingGenerator" Collapsed="true">
+    <Position X="14.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generator\CUBRIDMappingGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.EntityFrameworkGenerator" Collapsed="true">
+    <Position X="1.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAQAAAAACAAAABEAAAAAAAEAAAAQ=</HashCode>
+      <FileName>Generator\EntityFrameworkGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.EFOneToMany" Collapsed="true">
+    <Position X="29.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAACAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generator\EntityFrameworkGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.FluentGenerator" Collapsed="true">
+    <Position X="3.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAQAAAAACAAAABEAAAAAAAEAAAAQ=</HashCode>
+      <FileName>Generator\FluentGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.DataTypeExtensions" Collapsed="true">
+    <Position X="35" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Generator\FluentGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.OneToMany" Collapsed="true">
+    <Position X="31.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generator\FluentGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.StringExtensions" Collapsed="true">
+    <Position X="38.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generator\FluentGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.MappingGenerator" Collapsed="true">
+    <Position X="19.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAgEAAAAQ=</HashCode>
+      <FileName>Generator\MappingGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.MysqlMappingGenerator" Collapsed="true">
+    <Position X="23.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generator\MysqlMappingGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.NpgsqlMappingGenerator" Collapsed="true">
+    <Position X="17" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generator\NpgsqlMappingGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.OracleMappingGenerator" Collapsed="true">
+    <Position X="19.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generator\OracleMappingGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Generator.SqlMappingGenerator" Collapsed="true">
+    <Position X="21.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generator\SqlMappingGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.LocalizationRequiredAttribute" Collapsed="true">
+    <Position X="29.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.StringFormatMethodAttribute" Collapsed="true">
+    <Position X="26.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.InvokerParameterNameAttribute" Collapsed="true">
+    <Position X="28" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.NotifyPropertyChangedInvocatorAttribute" Collapsed="true">
+    <Position X="38.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.CanBeNullAttribute" Collapsed="true">
+    <Position X="29.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.NotNullAttribute" Collapsed="true">
+    <Position X="26.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.ContractAnnotationAttribute" Collapsed="true">
+    <Position X="29.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.CannotApplyEqualityOperatorAttribute" Collapsed="true">
+    <Position X="31.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.BaseTypeRequiredAttribute" Collapsed="true">
+    <Position X="28" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.UsedImplicitlyAttribute" Collapsed="true">
+    <Position X="33.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.MeansImplicitUseAttribute" Collapsed="true">
+    <Position X="31.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.PublicAPIAttribute" Collapsed="true">
+    <Position X="38.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.InstantHandleAttribute" Collapsed="true">
+    <Position X="26.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.PureAttribute" Collapsed="true">
+    <Position X="26.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.PathReferenceAttribute" Collapsed="true">
+    <Position X="2.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.AspMvcActionAttribute" Collapsed="true">
+    <Position X="28" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.AspMvcAreaAttribute" Collapsed="true">
+    <Position X="0.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.AspMvcControllerAttribute" Collapsed="true">
+    <Position X="31.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.AspMvcMasterAttribute" Collapsed="true">
+    <Position X="36.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.AspMvcModelTypeAttribute" Collapsed="true">
+    <Position X="38.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.AspMvcPartialViewAttribute" Collapsed="true">
+    <Position X="2.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.AspMvcSupressViewErrorAttribute" Collapsed="true">
+    <Position X="26.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.AspMvcDisplayTemplateAttribute" Collapsed="true">
+    <Position X="33.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.AspMvcEditorTemplateAttribute" Collapsed="true">
+    <Position X="35" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.AspMvcViewAttribute" Collapsed="true">
+    <Position X="5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.AspMvcActionSelectorAttribute" Collapsed="true">
+    <Position X="29.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Annotations.RazorSectionAttribute" Collapsed="true">
+    <Position X="28" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Reader.CUBRIDConstraintType" Collapsed="true">
+    <Position X="31.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAgAIEACAAAAAAAAAAgAA=</HashCode>
+      <FileName>Reader\CUBRIDConstraintType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Reader.CUBRIDMetadataReader" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="33.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAIABAAAABAAAQEAAAAAAAAAAAACAAAgAAAA=</HashCode>
+      <FileName>Reader\CUBRIDMetadataReader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NMG.Core.Reader.IngresMetadataReader" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="38.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAIABAACAhAAAQEAAABQAAAAIAAAAAAgAAAA=</HashCode>
+      <FileName>Reader\IngresMetadataReader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NMG.Core.Reader.MysqlConstraintType" Collapsed="true">
+    <Position X="35" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAEAAAAAAAAgAIEAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Reader\MysqlConstraintType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Reader.MysqlMetadataReader" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="36.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAIABAAAABAAAQEAAAAQAAAAAAACAAAgAAAA=</HashCode>
+      <FileName>Reader\MysqlMetadataReader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NMG.Core.Reader.NpgsqlConstraintType" Collapsed="true">
+    <Position X="28" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAEAAAAAAAAgAIEACAAAAAAAAAAgAA=</HashCode>
+      <FileName>Reader\NpgsqlConstraintType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Reader.NpgsqlMetadataReader" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAIABAAAARAAAQEAAAAQAAAAAAACAAAgAAAA=</HashCode>
+      <FileName>Reader\NpgsqlMetadataReader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NMG.Core.Reader.OracleConstraintType" Collapsed="true">
+    <Position X="33.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAEAAAAAAAAgAIEACAAAAAgAAAAgAA=</HashCode>
+      <FileName>Reader\OracleConstraintType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Reader.ConstraintTypeResolver" Collapsed="true">
+    <Position X="28" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAACAgAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reader\OracleMetadataReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Reader.OracleMetadataReader" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="35" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAIABAAAABAAAQEAAAAQAAAAAAACAAAgAAAA=</HashCode>
+      <FileName>Reader\OracleMetadataReader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NMG.Core.Reader.SqliteMetadataReader" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="31.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAIABAAAARAAAAEAAAAAAABAAAAAAAAgAAAA=</HashCode>
+      <FileName>Reader\SqliteMetadataReader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NMG.Core.Reader.SqliteDataType" Collapsed="true">
+    <Position X="29.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reader\SqliteMetadataReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Reader.SqlServerConstraintType" Collapsed="true">
+    <Position X="33.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAEAAAAAAAAgAIEACAAAAAAAAAAgAA=</HashCode>
+      <FileName>Reader\SqlServerConstraintType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Reader.SqlServerMetadataReader" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="35" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAIABAAAABAAAQEAAAAAAAAAAAACAAAhAAAA=</HashCode>
+      <FileName>Reader\SqlServerMetadataReader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NMG.Core.Reader.SybaseMetadataReader" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAIABAAAABAAAQEAAAAQAABAAAAAAAAgAAAA=</HashCode>
+      <FileName>Reader\SybaseMetadataReader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NMG.Core.TextFormatter.Inflector" Collapsed="true">
+    <Position X="36.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IEAAAEBAAAAAEAAiAABAAAYACAoAAgAACAAAABACJIA=</HashCode>
+      <FileName>TextFormatter\Inflector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.TextFormatter.AbstractTextFormatter" Collapsed="true">
+    <Position X="3.75" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAgA=</HashCode>
+      <FileName>TextFormatter\TextFormatter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NMG.Core.TextFormatter.UnformattedTextFormatter" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TextFormatter\TextFormatter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.TextFormatter.CamelCaseTextFormatter" Collapsed="true">
+    <Position X="2.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>TextFormatter\TextFormatter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.TextFormatter.PascalCaseTextFormatter" Collapsed="true">
+    <Position X="5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>TextFormatter\TextFormatter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.TextFormatter.PrefixedTextFormatter" Collapsed="true">
+    <Position X="7.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>TextFormatter\TextFormatter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.TextFormatter.TextFormatterFactory" Collapsed="true">
+    <Position X="31.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>TextFormatter\TextFormatter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Util.Extensions" Collapsed="true">
+    <Position X="31.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAARAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Util\Extensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NMG.Core.Util.StringConstants" Collapsed="true">
+    <Position X="36.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAABAAAAAAYAAAAAAAAIAAAAAAAAAAGAAAAAAE=</HashCode>
+      <FileName>Util\StringConstants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="NMG.Core.Domain.IPrimaryKey" Collapsed="true">
+    <Position X="31.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Domain\Table.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="NMG.Core.Generator.IGenerator" Collapsed="true">
+    <Position X="28" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generator\IGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="NMG.Core.Reader.IConstraintTypeResolver" Collapsed="true">
+    <Position X="26.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAACAgAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reader\IConstraintTypeResolver.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="NMG.Core.Reader.IMetadataReader" Collapsed="true">
+    <Position X="29.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAIABAAAABAAAAEAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Reader\IMetadataReader.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="NMG.Core.TextFormatter.ITextFormatter" Collapsed="true">
+    <Position X="33.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAA=</HashCode>
+      <FileName>TextFormatter\TextFormatter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="NMG.Core.FieldNamingConvention" Collapsed="true">
+    <Position X="28" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAQAAAAAACAAQAAAAA=</HashCode>
+      <FileName>FieldNamingConvention.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NMG.Core.FieldGenerationConvention" Collapsed="true">
+    <Position X="26.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAgAA=</HashCode>
+      <FileName>FieldNamingConvention.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NMG.Core.Domain.Language" Collapsed="true">
+    <Position X="33.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Domain\Language.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NMG.Core.Domain.PrimaryKeyType" Collapsed="true">
+    <Position X="35" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAQAAgAA=</HashCode>
+      <FileName>Domain\PrimaryKeyType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NMG.Core.Domain.ServerType" Collapsed="true">
+    <Position X="36.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIIAAAIAAAAEAAAAAAAAAAACAEAAAAEAAAAAABAAAAA=</HashCode>
+      <FileName>Domain\ServerType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NMG.Core.Domain.ValidationStyle" Collapsed="true">
+    <Position X="38.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAEAAAA=</HashCode>
+      <FileName>Domain\ValidationStyle.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NMG.Core.Annotations.ImplicitUseKindFlags" Collapsed="true">
+    <Position X="29.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAABAEAAAAAAIAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NMG.Core.Annotations.ImplicitUseTargetFlags" Collapsed="true">
+    <Position X="31.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAIAAAAAAAAAAAAAAEAAAAAAQ=</HashCode>
+      <FileName>Properties\Annotations.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

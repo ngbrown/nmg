@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using Microsoft.CSharp;
 using Microsoft.VisualBasic;
+using System.Linq;
 using NMG.Core.Domain;
 
 namespace NMG.Core.Generator
@@ -76,15 +77,7 @@ namespace NMG.Core.Generator
             return entireContent;
         }
 
-        private string GetCompleteFilePath(CodeDomProvider provider, string entityFileName)
-        {
-            if (!filePath.EndsWith(Path.DirectorySeparatorChar.ToString()))
-                filePath += Path.DirectorySeparatorChar;
-            string fileName = filePath + entityFileName;
-            return provider.FileExtension[0] == '.'
-                       ? fileName + provider.FileExtension
-                       : fileName + "." + provider.FileExtension;
-        }
+        
 
         protected CodeDomProvider GetCodeDomProvider()
         {

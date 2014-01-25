@@ -4,6 +4,7 @@ using System.CodeDom.Compiler;
 using System.IO;
 using NMG.Core.Domain;
 using NMG.Core.TextFormatter;
+using System.Linq;
 
 namespace NMG.Core.Generator
 {
@@ -73,5 +74,24 @@ namespace NMG.Core.Generator
         }
 
         protected abstract string CleanupGeneratedFile(string generatedContent);
+
+        protected string GetCompleteFilePath(CodeDomProvider provider, string baseName)
+        {
+            if (IsReservedWindowsName(baseName))
+                baseName = baseName + "Table";
+            string fileName = Path.Combine(filePath, baseName);
+            return provider.FileExtension[0] == '.'
+                       ? fileName + provider.FileExtension
+                       : fileName + "." + provider.FileExtension;
+        }
+
+        static string[] reservedNames = { "CON", "PRN", "AUX", "NUL", 
+                                          "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
+                                          "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"  
+                                        };
+        private static bool IsReservedWindowsName(string baseName)
+        {
+            return reservedNames.Contains(baseName.ToUpperInvariant());
+        }
     }
 }
