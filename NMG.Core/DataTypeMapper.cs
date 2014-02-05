@@ -188,20 +188,28 @@ namespace NMG.Core
 
         private Type MapFromDBType(string dataType, int? dataLength, int? dataPrecision, int? dataScale)
         {
-            switch (dataType.ToUpperInvariant())
+            var words = dataType.Split(' ');
+            var firstWord = words[0].ToUpperInvariant();
+            var dataTypeUpper = dataType.ToUpperInvariant();
+            switch (firstWord)
             {
                 case "DATE":
                 case "DATETIME":
                 case "DATETIME2":
                 case "TIMESTAMP":
-                case "TIMESTAMP WITH TIME ZONE":
-                case "TIMESTAMP WITH LOCAL TIME ZONE":
                 case "SMALLDATETIME":
                 case "TIME":
                     return typeof(DateTime);
 
                 case "NUMBER":
                 case "LONG":
+                    switch (dataTypeUpper)
+                    {
+                        case "LONG RAW": 
+                            return typeof(byte[]);
+                        default: 
+                            return typeof(long);
+                    }
                 case "BIGINT":
                     return typeof(long);
 
@@ -212,10 +220,18 @@ namespace NMG.Core
                     return typeof(Byte);
 
                 case "INT":
-                case "INTERVAL YEAR TO MONTH":
                 case "BINARY_INTEGER":
                 case "INTEGER":
                     return typeof(int);
+                case "INTERVAL":
+                    switch (dataTypeUpper)
+                    {
+                        case "INTERVAL YEAR TO MONTH": //TODO why this is integer?
+                            return typeof(int);
+                        case "INTERVAL DAY TO SECOND":
+                            return typeof(TimeSpan);
+                        default: return typeof(TimeSpan); //Assume timespan
+                    }
 
                 case "BINARY_DOUBLE":
                 case "NUMERIC":
@@ -226,16 +242,11 @@ namespace NMG.Core
                     return typeof(float);
 
                 case "BLOB":
-                case "BFILE *":
-                case "LONG RAW":
+                case "BFILE":
                 case "BINARY":
                 case "IMAGE":
                 case "VARBINARY":
                     return typeof(byte[]);
-
-                case "INTERVAL DAY TO SECOND":
-                    return typeof(TimeSpan);
-
                 case "BIT":
                 case "BOOLEAN":
                     return typeof(Boolean);
