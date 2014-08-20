@@ -87,14 +87,11 @@ namespace NMG.Tests.Generator
                                                            new CodeGeneratorOptions());
             
             StringBuilder builderCompare = new StringBuilder();
-            builderCompare.AppendLine("public virtual string Name {");
-            builderCompare.AppendLine("            get {");
-            builderCompare.AppendLine("                return this.name;");
-            builderCompare.AppendLine("            }");
-            builderCompare.AppendLine("            set {");
-            builderCompare.AppendLine("                this.name = value;");
-            builderCompare.AppendLine("            }");
-            builderCompare.Append("        }");
+            builderCompare.AppendLine("    public virtual string Name {");
+            builderCompare.AppendLine("    {");
+            builderCompare.AppendLine("            get { return this.name; }");
+            builderCompare.AppendLine("            set { this.name = value; }");
+            builderCompare.AppendLine("    }");
             Assert.IsTrue(
                 stringBuilder.ToString().Contains(builderCompare.ToString()));
         }
