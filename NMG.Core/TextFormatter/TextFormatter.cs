@@ -34,7 +34,7 @@ namespace NMG.Core.TextFormatter
 
             // Split by capitals to preserve pascal/camelcasing in original text value
             // Preserves TLAs. See http://stackoverflow.com/a/1098039
-            result = Regex.Replace(result, "((?<=[a-z])[A-Z]|[A-Z](?=[a-z]))", " $1").Trim();
+            result = Regex.Replace(result, "((?<=[a-z])[A-Z]|[A-Z](?=[a-z]))", "$1").Trim();
 
             // Omit any chars except letters and numbers in class or properties.
             result = result.Replace(" ", "_");
