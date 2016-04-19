@@ -58,11 +58,8 @@ namespace NMG.Core.Generator
 
             var constructor = new CodeConstructor {Attributes = MemberAttributes.Public};
 
-            // Table Name - Only ouput if table is different than the class name.
-            if (Table.Name.ToLower() != className.ToLower())
-            {
-                constructor.Statements.Add(new CodeSnippetStatement(TABS + "Table(\"" + Table.Name + "\");"));
-            }
+            // Table Name - Always ouput table to allow for refactoring the class name.
+            constructor.Statements.Add(new CodeSnippetStatement(TABS + "Table(\"" + Table.Name + "\");"));
             // Scheme / Owner Name
             if (!string.IsNullOrEmpty(Table.Owner))
             {
