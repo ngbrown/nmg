@@ -226,8 +226,10 @@ namespace NMG.Core.Generator
         {
             if (foreignEntityCollectionType.Contains("List"))
                 return "List";
-            if (foreignEntityCollectionType.Contains("Set"))
+            if (foreignEntityCollectionType.Contains("Iesi.Collections.ISet"))
                 return "HashedSet";
+            if (foreignEntityCollectionType.Contains("ISet"))
+                return "HashSet";
             if (foreignEntityCollectionType.Contains("Collection"))
                 return "List";
             return foreignEntityCollectionType;

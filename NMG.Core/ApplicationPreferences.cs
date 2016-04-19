@@ -87,7 +87,7 @@ namespace NMG.Core
                                       Prefix = string.Empty,
                                       IsNhFluent = true,
                                       Language = Language.CSharp,
-                                      ForeignEntityCollectionType = "IList",
+                                      ForeignEntityCollectionType = "ISet",
                                       InheritenceAndInterfaces = "",
                                       UseLazy = true
                                   };

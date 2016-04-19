@@ -214,7 +214,7 @@ namespace NHibernateMappingGenerator
                 includeHasManyCheckBox.Checked = false;
                 useLazyLoadingCheckBox.Checked = true;
 
-                comboBoxForeignCollection.Text = "IList";
+                comboBoxForeignCollection.Text = "ISet";
                 
                 CaptureApplicationSettings();
             }
