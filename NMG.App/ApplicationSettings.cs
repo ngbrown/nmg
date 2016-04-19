@@ -92,7 +92,7 @@ namespace NHibernateMappingGenerator
         public static ApplicationSettings Load()
         {
             ApplicationSettings appSettings = null;
-            var xmlSerializer = new XmlSerializer(typeof (ApplicationSettings));
+            var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(ApplicationSettings));
             var fi = new FileInfo(Application.LocalUserAppDataPath + @"\nmg.config");
             if (fi.Exists)
             {

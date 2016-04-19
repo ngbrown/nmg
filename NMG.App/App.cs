@@ -145,9 +145,10 @@ namespace NHibernateMappingGenerator
             if (applicationSettings != null)
             {
                 // Display all previous connections
+                applicationSettings.Connections.Sort((connection, connection1) => System.String.Compare(connection.Name, connection1.Name, System.StringComparison.OrdinalIgnoreCase));
                 connectionNameComboBox.DataSource = applicationSettings.Connections;
                 connectionNameComboBox.DisplayMember = "Name";
-
+                
                 // Set the last used connection
                 var lastUsedConnection =
                     applicationSettings.Connections.FirstOrDefault(connection => connection.Id == applicationSettings.LastUsedConnection);
