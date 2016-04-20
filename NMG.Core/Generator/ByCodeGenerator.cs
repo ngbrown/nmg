@@ -59,14 +59,14 @@ namespace NMG.Core.Generator
             var constructor = new CodeConstructor {Attributes = MemberAttributes.Public};
 
             // Table Name - Always ouput table to allow for refactoring the class name.
-            constructor.Statements.Add(new CodeSnippetStatement(TABS + "Table(\"" + Table.Name + "\");"));
+            constructor.Statements.Add(new CodeSnippetStatement(TABS3 + "Table(\"" + Table.Name + "\");"));
             // Scheme / Owner Name
             if (!string.IsNullOrEmpty(Table.Owner))
             {
-                constructor.Statements.Add(new CodeSnippetStatement(TABS + "Schema(\"" + Table.Owner + "\");"));
+                constructor.Statements.Add(new CodeSnippetStatement(TABS3 + "Schema(\"" + Table.Owner + "\");"));
             }
 
-            constructor.Statements.Add(new CodeSnippetStatement(TABS + string.Format("Lazy({0});", appPrefs.UseLazy ? "true" : "false")));
+            constructor.Statements.Add(new CodeSnippetStatement(TABS3 + string.Format("Lazy({0});", appPrefs.UseLazy ? "true" : "false")));
 
             var mapper = new DBColumnMapper(appPrefs);
 
@@ -76,27 +76,27 @@ namespace NMG.Core.Generator
                 if (UsesSequence)
                 {
                     constructor.Statements.Add(
-                        new CodeSnippetStatement(TABS +
+                        new CodeSnippetStatement(TABS3 +
                                                  mapper.IdSequenceMap(Table.PrimaryKey.Columns[0], appPrefs.Sequence,
                                                                       Formatter)));
                 }
                 else if (Table.PrimaryKey.Type == PrimaryKeyType.PrimaryKey)
                 {
                     constructor.Statements.Add(
-                        new CodeSnippetStatement(TABS + mapper.IdMap(Table.PrimaryKey.Columns[0], Formatter)));
+                        new CodeSnippetStatement(TABS3 + mapper.IdMap(Table.PrimaryKey.Columns[0], Formatter)));
                 }
                 else if (Table.PrimaryKey.Type == PrimaryKeyType.CompositeKey)
                 {
                     var pkColumns = Table.PrimaryKey.Columns;
                     constructor.Statements.Add(
-                        new CodeSnippetStatement(TABS + mapper.CompositeIdMap(pkColumns, Formatter)));
+                        new CodeSnippetStatement(TABS3 + mapper.CompositeIdMap(pkColumns, Formatter)));
                 }
             }
 
             // Property Map
             foreach (var column in Table.Columns.Where(x => !x.IsPrimaryKey && (!x.IsForeignKey || !appPrefs.IncludeForeignKeys)))
             {
-                constructor.Statements.Add(new CodeSnippetStatement(TABS + mapper.Map(column, Formatter, appPrefs.IncludeLengthAndScale)));
+                constructor.Statements.Add(new CodeSnippetStatement(TABS3 + mapper.Map(column, Formatter, appPrefs.IncludeLengthAndScale)));
             }
 
             // Many To One Mapping

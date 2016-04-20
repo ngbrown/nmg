@@ -4,6 +4,7 @@ using System.Linq;
 using NMG.Core.Domain;
 using NMG.Core.TextFormatter;
 using System.Text;
+using NMG.Core.Generator;
 
 namespace NMG.Core.ByCode
 {
@@ -11,6 +12,13 @@ namespace NMG.Core.ByCode
     {
         private readonly ApplicationPreferences _applicationPreferences;
         private readonly Language _language;
+
+        private const string TAB = AbstractGenerator.TAB;
+        internal const string TABS2 = AbstractGenerator.TABS2;
+        internal const string TABS3 = AbstractGenerator.TABS3;
+        internal const string TABS4 = AbstractGenerator.TABS4;
+        internal const string TABS5 = AbstractGenerator.TABS5;
+        internal const string TABS6 = AbstractGenerator.TABS6;
 
         public DBColumnMapper(ApplicationPreferences applicationPreferences)
         {
@@ -31,17 +39,17 @@ namespace NMG.Core.ByCode
                 case Language.CSharp:
                     builder.AppendFormat("Id(x => x.{0}, map => ", formatter.FormatText(column.Name));
                     builder.AppendLine();
-                    builder.AppendLine("\t\t\t\t{");
-                    builder.AppendLine("\t\t\t\t\tmap.Column(\"" + column.Name + "\");");
-                    builder.AppendLine("\t\t\t\t\tmap.Generator(Generators.Sequence, g => g.Params(new { sequence = \"" + sequenceName + "\" }));");
-                    builder.Append("\t\t\t\t});");
+                    builder.AppendLine(TABS4+"{");
+                    builder.AppendLine(TABS5+"map.Column(\"" + column.Name + "\");");
+                    builder.AppendLine(TABS5+"map.Generator(Generators.Sequence, g => g.Params(new { sequence = \"" + sequenceName + "\" }));");
+                    builder.Append(TABS4+"});");
                     break;
                 case Language.VB:
                     builder.AppendFormat("Id(Function(x) x.{0}, Sub(map)", formatter.FormatText(column.Name));
                     builder.AppendLine();
-                    builder.AppendLine("\t\t\t\t\tmap.Column(\"" + column.Name + "\")");
-                    builder.AppendLine("\t\t\t\t\tmap.Generator(Generators.Sequence, Function(g) g.Params(New { sequence = \"" + sequenceName + "\" }))");
-                    builder.Append("\t\t\t\tEnd Sub)");
+                    builder.AppendLine(TABS5+"map.Column(\"" + column.Name + "\")");
+                    builder.AppendLine(TABS5+"map.Generator(Generators.Sequence, Function(g) g.Params(New { sequence = \"" + sequenceName + "\" }))");
+                    builder.Append(TABS4+"End Sub)");
                     break;
             }
 
@@ -72,20 +80,20 @@ namespace NMG.Core.ByCode
             {
                 case Language.CSharp:
                     builder.AppendLine("ComposedId(compId =>");
-                    builder.AppendLine("\t\t\t\t{");
+                    builder.AppendLine(TABS4+"{");
                     foreach (var column in columns)
                     {
-                        builder.AppendLine("\t\t\t\t\tcompId.Property(x => x." + formatter.FormatText(column.Name) + ", m => m.Column(\"" + column.Name + "\"));");
+                        builder.AppendLine(TABS5+"compId.Property(x => x." + formatter.FormatText(column.Name) + ", m => m.Column(\"" + column.Name + "\"));");
                     }
-                    builder.Append("\t\t\t\t});");
+                    builder.Append(TABS4+"});");
                     break;
                 case Language.VB:
                     builder.AppendLine("ComposedId(Sub(compId)");
                     foreach (var column in columns)
                     {
-                        builder.AppendLine("\t\t\t\t\tcompId.Property(Function(x) x." + formatter.FormatText(column.Name) + ", Sub(m) m.Column(\"" + column.Name + "\"))");
+                        builder.AppendLine(TABS5+"compId.Property(Function(x) x." + formatter.FormatText(column.Name) + ", Sub(m) m.Column(\"" + column.Name + "\"))");
                     }
-                    builder.AppendLine("\t\t\t\tEnd Sub)");
+                    builder.AppendLine(TABS4+"End Sub)");
                     break;
             }
 
@@ -169,7 +177,7 @@ namespace NMG.Core.ByCode
                             outerStrBuilder.AppendFormat("{0}(x => x.{1}, map => {{ {2}; }});", byCodeProperty, propertyName, mapList.Aggregate((c, s) => string.Format("{0}; {1}", c, s)));
                             break;
                         default:
-                            outerStrBuilder.AppendFormat("{0}(x => x.{1}, map => \r\n\t\t\t{{\r\n\t\t\t\t{2};\r\n\t\t\t}});", byCodeProperty,propertyName, mapList.Aggregate((c, s) => string.Format("{0};\r\n\t\t\t\t{1}", c, s)));
+                            outerStrBuilder.AppendFormat("{0}(x => x.{1}, map => \r\n"+TABS3+"{{\r\n"+TABS4+"{2};\r\n"+TABS3+"}});", byCodeProperty,propertyName, mapList.Aggregate((c, s) => string.Format("{0};\r\n"+TABS4+"{1}", c, s)));
                             break;
                     }
                     break;
@@ -185,7 +193,7 @@ namespace NMG.Core.ByCode
                             outerStrBuilder.AppendFormat("{0}(Function(x) x.{1}, Sub(map) {2})", byCodeProperty, propertyName, mapList.First());
                             break;
                         default:
-                            outerStrBuilder.AppendFormat("{0}(Function(x) x.{1}, Sub(map)\r\n\t\t\t\t\t\t{2}\r\n\t\t\t\t\tEnd Sub)", byCodeProperty, propertyName, mapList.Aggregate((c, s) => string.Format("{0}\r\n\t\t\t\t\t\t{1}", c, s)));
+                            outerStrBuilder.AppendFormat("{0}(Function(x) x.{1}, Sub(map)\r\n"+TABS6+"{2}\r\n"+TABS5+"End Sub)", byCodeProperty, propertyName, mapList.Aggregate((c, s) => string.Format("{0}\r\n"+TABS6+"{1}", c, s)));
                             break;
                     }
                     break;
@@ -200,14 +208,14 @@ namespace NMG.Core.ByCode
             if (_language == Language.CSharp)
             {
                 builder.AppendFormat(
-                    "\t\t\tBag(x => x.{0}, colmap =>  {{ colmap.Key(x => x.Column(\"{1}\")); colmap.Inverse(true); }}, map => {{ map.OneToMany(); }});",
+                    TABS3+"Bag(x => x.{0}, colmap =>  {{ colmap.Key(x => x.Column(\"{1}\")); colmap.Inverse(true); }}, map => {{ map.OneToMany(); }});",
                     formatter.FormatPlural(hasMany.Reference),
                     hasMany.ReferenceColumn);
             }
             else if (_language == Language.VB)
             {
                 builder.AppendFormat(
-                    "\t\t\tBag(Function(x) x.{0}, Sub(colmap) colmap.Key(Function(x) x.Column(\"{1}\")), Sub(map) map.OneToMany())",
+                    TABS3+"Bag(Function(x) x.{0}, Sub(colmap) colmap.Key(Function(x) x.Column(\"{1}\")), Sub(map) map.OneToMany())",
                     formatter.FormatPlural(hasMany.Reference),
                     hasMany.ReferenceColumn);
             }
@@ -232,7 +240,7 @@ namespace NMG.Core.ByCode
                     mapList.Add("map.NotNullable(true)");
                 }
                 mapList.Add("map.Cascade(Cascade.None)");
-                builder.AppendLine(FormatCode("\t\t\tManyToOne",formatter.FormatSingular(fk.UniquePropertyName),mapList));
+                builder.AppendLine(FormatCode(TABS3+"ManyToOne",formatter.FormatSingular(fk.UniquePropertyName),mapList));
             }
             else
             {
@@ -241,7 +249,7 @@ namespace NMG.Core.ByCode
                 if (_language == Language.CSharp)
                 {
                     builder.AppendFormat(
-                        "\t\t\tManyToOne(x => x.{0}, map => map.Columns(new Action<IColumnMapper>[] {{ ",
+                        TABS3+"ManyToOne(x => x.{0}, map => map.Columns(new Action<IColumnMapper>[] {{ ",
                         formatter.FormatSingular(fk.UniquePropertyName));
 
                     var lastColumn = fk.Columns.Last();
@@ -261,7 +269,7 @@ namespace NMG.Core.ByCode
                 else if (_language == Language.VB)
                 {
                     builder.AppendFormat(
-                        "\t\t\tManyToOne(Function(x) x.{0}, Sub(map) map.Columns(new Action<IColumnMapper>[] {{",
+                        TABS3+"ManyToOne(Function(x) x.{0}, Sub(map) map.Columns(new Action<IColumnMapper>[] {{",
                         formatter.FormatSingular(fk.UniquePropertyName));
 
                     var lastColumn = fk.Columns.Last();

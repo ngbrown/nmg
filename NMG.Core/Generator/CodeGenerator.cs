@@ -92,11 +92,11 @@ namespace NMG.Core.Generator
                     if (appPrefs.Language == Language.CSharp)
                     {
                         newType.Members.Add(codeGenerationHelper.CreateAutoProperty(string.Format("{0}<{1}{2}>", appPrefs.ForeignEntityCollectionType, appPrefs.ClassNamePrefix, pascalCaseTextFormatter.FormatSingular(hasMany.Reference)), Formatter.FormatPlural(hasMany.Reference), appPrefs.UseLazy));
-                        constructorStatements.Add(new CodeSnippetStatement(string.Format(TABS + "{0} = new {1}<{2}{3}>();", Formatter.FormatPlural(hasMany.Reference), codeGenerationHelper.InstatiationObject(appPrefs.ForeignEntityCollectionType), appPrefs.ClassNamePrefix, pascalCaseTextFormatter.FormatSingular(hasMany.Reference))));
+                        constructorStatements.Add(new CodeSnippetStatement(string.Format(TABS3 + "{0} = new {1}<{2}{3}>();", Formatter.FormatPlural(hasMany.Reference), codeGenerationHelper.InstatiationObject(appPrefs.ForeignEntityCollectionType), appPrefs.ClassNamePrefix, pascalCaseTextFormatter.FormatSingular(hasMany.Reference))));
                     } else if (appPrefs.Language == Language.VB)
                     {
                         newType.Members.Add(codeGenerationHelper.CreateAutoProperty(string.Format("{0}(Of {1}{2})", appPrefs.ForeignEntityCollectionType, appPrefs.ClassNamePrefix, pascalCaseTextFormatter.FormatSingular(hasMany.Reference)), Formatter.FormatPlural(hasMany.Reference), appPrefs.UseLazy));
-                        constructorStatements.Add(new CodeSnippetStatement(string.Format(TABS + "{0} = New {1}(Of {2}{3})()", Formatter.FormatPlural(hasMany.Reference), codeGenerationHelper.InstatiationObject(appPrefs.ForeignEntityCollectionType), appPrefs.ClassNamePrefix, pascalCaseTextFormatter.FormatSingular(hasMany.Reference))));
+                        constructorStatements.Add(new CodeSnippetStatement(string.Format(TABS3 + "{0} = New {1}(Of {2}{3})()", Formatter.FormatPlural(hasMany.Reference), codeGenerationHelper.InstatiationObject(appPrefs.ForeignEntityCollectionType), appPrefs.ClassNamePrefix, pascalCaseTextFormatter.FormatSingular(hasMany.Reference))));
                     }
                 }
 
@@ -323,29 +323,29 @@ namespace NMG.Core.Generator
 
             if (appPrefs.Language == Language.CSharp)
             {
-                method.Statements.Add(new CodeSnippetStatement("\t\t\tif (obj == null) return false;"));
-                method.Statements.Add(new CodeSnippetStatement(string.Format("\t\t\tvar t = obj as {0};", className)));
-                method.Statements.Add(new CodeSnippetStatement("\t\t\tif (t == null) return false;"));
+                method.Statements.Add(new CodeSnippetStatement(TABS3+"if (obj == null) return false;"));
+                method.Statements.Add(new CodeSnippetStatement(string.Format(TABS3+"var t = obj as {0};", className)));
+                method.Statements.Add(new CodeSnippetStatement(TABS3+"if (t == null) return false;"));
 
-                compareCode.Append("\t\t\tif (");
+                compareCode.Append(TABS3+"if (");
                 var lastCol = columns.LastOrDefault();
                 foreach (var column in columns)
                 {
                     compareCode.Append(string.Format("{0} == t.{0}", column));
-                    compareCode.Append(column != lastCol ? "\n\t\t\t && " : ")");
+                    compareCode.Append(column != lastCol ? "\r\n"+TABS3+" && " : ")");
                 }
                 method.Statements.Add(new CodeSnippetStatement(compareCode.ToString()));
 
-                method.Statements.Add(new CodeSnippetStatement("\t\t\t\treturn true;"));
+                method.Statements.Add(new CodeSnippetStatement(TABS4+"return true;"));
                 method.Statements.Add(new CodeSnippetStatement(string.Empty));
-                method.Statements.Add(new CodeSnippetStatement("\t\t\treturn false;"));
+                method.Statements.Add(new CodeSnippetStatement(TABS3+"return false;"));
             } else if (appPrefs.Language == Language.VB)
             {
-                method.Statements.Add(new CodeSnippetStatement("\t\t\tIf obj Is Nothing Then Return False"));
-                method.Statements.Add(new CodeSnippetStatement(string.Format("\t\t\tDim t = TryCast(obj, {0})", className)));
-                method.Statements.Add(new CodeSnippetStatement("\t\t\tIf t Is Nothing Then Return False"));
+                method.Statements.Add(new CodeSnippetStatement(TABS3+"If obj Is Nothing Then Return False"));
+                method.Statements.Add(new CodeSnippetStatement(string.Format(TABS3+"Dim t = TryCast(obj, {0})", className)));
+                method.Statements.Add(new CodeSnippetStatement(TABS3+"If t Is Nothing Then Return False"));
 
-                compareCode.Append("\t\t\tIf ");
+                compareCode.Append(TABS3+"If ");
                 var lastCol = columns.LastOrDefault();
                 foreach (var column in columns)
                 {
@@ -354,10 +354,10 @@ namespace NMG.Core.Generator
                 }
                 method.Statements.Add(new CodeSnippetStatement(compareCode.ToString()));
 
-                method.Statements.Add(new CodeSnippetStatement("\t\t\t\tReturn True"));
-                method.Statements.Add(new CodeSnippetStatement("\t\t\tEnd If"));
+                method.Statements.Add(new CodeSnippetStatement(TABS4+"Return True"));
+                method.Statements.Add(new CodeSnippetStatement(TABS3+"End If"));
                 method.Statements.Add(new CodeSnippetStatement(string.Empty));
-                method.Statements.Add(new CodeSnippetStatement("\t\t\tReturn False"));
+                method.Statements.Add(new CodeSnippetStatement(TABS3+"Return False"));
             }
             return method;
         }
@@ -376,28 +376,28 @@ namespace NMG.Core.Generator
             if (appPrefs.Language == Language.CSharp)
             {
                 // Create the if statement to compare if the obj equals another.
-                method.Statements.Add(new CodeSnippetStatement("\t\t\tint hash = GetType().GetHashCode();"));
+                method.Statements.Add(new CodeSnippetStatement(TABS3+"int hash = GetType().GetHashCode();"));
 
                 foreach (var column in columns)
                 {
                     method.Statements.Add(
-                        new CodeSnippetStatement(string.Format("\t\t\thash = (hash * 397) ^ {0}.GetHashCode();", column)));
+                        new CodeSnippetStatement(string.Format(TABS3+"hash = (hash * 397) ^ {0}.GetHashCode();", column)));
                 }
 
                 method.Statements.Add(new CodeSnippetStatement(string.Empty));
-                method.Statements.Add(new CodeSnippetStatement("\t\t\treturn hash;"));
+                method.Statements.Add(new CodeSnippetStatement(TABS3+"return hash;"));
             } else if (appPrefs.Language == Language.VB)
             {
                 // Create the if statement to compare if the obj equals another.
-                method.Statements.Add(new CodeSnippetStatement("\t\t\tDim hash As Integer = 13"));
+                method.Statements.Add(new CodeSnippetStatement(TABS3+"Dim hash As Integer = 13"));
 
                 foreach (var column in columns)
                 {
-                    method.Statements.Add(new CodeSnippetStatement(string.Format("\t\t\thash += {0}.GetHashCode()", column)));
+                    method.Statements.Add(new CodeSnippetStatement(string.Format(TABS3+"hash += {0}.GetHashCode()", column)));
                 }
 
                 method.Statements.Add(new CodeSnippetStatement(string.Empty));
-                method.Statements.Add(new CodeSnippetStatement("\t\t\tReturn hash"));
+                method.Statements.Add(new CodeSnippetStatement(TABS3+"Return hash"));
             }
             return method;
         }

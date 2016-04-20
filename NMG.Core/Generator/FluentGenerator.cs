@@ -53,14 +53,14 @@ namespace NMG.Core.Generator
             newType.BaseTypes.Add(string.Format("ClassMap<{0}{1}>", appPrefs.ClassNamePrefix, pascalCaseTextFormatter.FormatSingular(Table.Name)));
 
             var constructor = new CodeConstructor {Attributes = MemberAttributes.Public};
-            constructor.Statements.Add(new CodeSnippetStatement(TABS + "Table(\"" + Table.Name + "\");"));
+            constructor.Statements.Add(new CodeSnippetStatement(TABS3 + "Table(\"" + Table.Name + "\");"));
             if (appPrefs.UseLazy)
-                constructor.Statements.Add(new CodeSnippetStatement(TABS + "LazyLoad();"));
+                constructor.Statements.Add(new CodeSnippetStatement(TABS3 + "LazyLoad();"));
 
             if(UsesSequence)
             {
                 var fieldName = FixPropertyWithSameClassName(Table.PrimaryKey.Columns[0].Name, Table.Name);
-				constructor.Statements.Add(new CodeSnippetStatement(String.Format(TABS + "Id(x => x.{0}).Column(x => x.{1}).GeneratedBy.Sequence(\"{2}\")",
+				constructor.Statements.Add(new CodeSnippetStatement(String.Format(TABS3 + "Id(x => x.{0}).Column(x => x.{1}).GeneratedBy.Sequence(\"{2}\")",
                     Formatter.FormatText(fieldName), fieldName, appPrefs.Sequence)));
             }
             else if (Table.PrimaryKey !=null && Table.PrimaryKey.Type == PrimaryKeyType.PrimaryKey)
@@ -83,11 +83,11 @@ namespace NMG.Core.Generator
                 var pkAlsoFkQty = (from fks in Table.ForeignKeys.Where(fks => fks.UniquePropertyName == name) select fks).Count();
                 if (pkAlsoFkQty > 1)
                 {
-                    constructor.Statements.Add(new CodeSnippetStatement(string.Format(TABS + "References(x => x.{0}).Column(\"{1}\").ForeignKey(\"{2}\");", fieldName, fk.Columns.First().Name, fk.Columns.First().ConstraintName)));
+                    constructor.Statements.Add(new CodeSnippetStatement(string.Format(TABS3 + "References(x => x.{0}).Column(\"{1}\").ForeignKey(\"{2}\");", fieldName, fk.Columns.First().Name, fk.Columns.First().ConstraintName)));
                 }
                 else
                 {
-                    constructor.Statements.Add(new CodeSnippetStatement(string.Format(TABS + "References(x => x.{0}).Column(\"{1}\");", fieldName, fk.Columns.First().Name)));
+                    constructor.Statements.Add(new CodeSnippetStatement(string.Format(TABS3 + "References(x => x.{0}).Column(\"{1}\");", fieldName, fk.Columns.First().Name)));
                 }
                 
             }
@@ -98,7 +98,7 @@ namespace NMG.Core.Generator
                 var propertyName = Formatter.FormatText(column.Name);
                 var fieldName = FixPropertyWithSameClassName(propertyName, Table.Name);
                 var columnMapping = new DBColumnMapper().Map(column, fieldName, Formatter, appPrefs.IncludeLengthAndScale);
-                constructor.Statements.Add(new CodeSnippetStatement(TABS + columnMapping));
+                constructor.Statements.Add(new CodeSnippetStatement(TABS3 + columnMapping));
             }
 
             // Bag (HasMany in FluentMapping)
@@ -130,7 +130,7 @@ namespace NMG.Core.Generator
             var fieldName = FixPropertyWithSameClassName(propertyName, table.Name);
             var pkAlsoFkQty = (from fk in table.ForeignKeys.Where(fk => fk.UniquePropertyName == pkColumnName) select fk).Count();
             if (pkAlsoFkQty > 0) fieldName = fieldName + "Id";
-             return new CodeSnippetStatement(string.Format(TABS + "Id(x => x.{0}).{1}.Column(\"{2}\");",
+             return new CodeSnippetStatement(string.Format(TABS3 + "Id(x => x.{0}).{1}.Column(\"{2}\");",
                                                        formatter.FormatText(fieldName),
                                                        idGeneratorType,
                                                        pkColumnName));
@@ -147,11 +147,11 @@ namespace NMG.Core.Generator
                 var pkAlsoFkQty = (from fk in table.ForeignKeys.Where(fk => fk.UniquePropertyName == pkColumn.Name) select fk).Count();
                 if (pkAlsoFkQty > 0) fieldName = fieldName + "Id";
              var tmp = String.Format(".KeyProperty(x => x.{0}, \"{1}\")",fieldName, pkColumn.Name);
-                keyPropertyBuilder.Append(first ? tmp : "\n" + TABS + "             " + tmp);
+                keyPropertyBuilder.Append(first ? tmp : "\r\n" + TABS3 + "             " + tmp);
                 first = false;
             }
 
-            return new CodeSnippetStatement(TABS + string.Format("CompositeId(){0};", keyPropertyBuilder));
+            return new CodeSnippetStatement(TABS3 + string.Format("CompositeId(){0};", keyPropertyBuilder));
         }
     }
 
@@ -183,7 +183,7 @@ namespace NMG.Core.Generator
 				string.Format(".KeyColumn(\"{0}\")", hasMany.ReferenceColumn) : 
 				string.Format(".KeyColumns({0})", hasMany.AllReferenceColumns.Aggregate("new string[] { ", (a, b) => a + "\"" + b + "\", ", c => c.Substring(0, c.Length - 2) + " }"));
 
-			return new CodeSnippetStatement(string.Format(AbstractGenerator.TABS + "{0}{1};", hasManySnippet, keySnippet));
+			return new CodeSnippetStatement(string.Format(AbstractGenerator.TABS3 + "{0}{1};", hasManySnippet, keySnippet));
 		}
 	}
 

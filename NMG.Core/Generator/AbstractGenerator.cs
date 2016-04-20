@@ -15,7 +15,14 @@ namespace NMG.Core.Generator
         protected string nameSpace;
         protected string sequenceName;
         protected string tableName;
-		internal const string TABS = "\t\t\t";
+
+        internal const string TAB = "    ";
+        internal const string TABS2 = TAB + TAB;
+        internal const string TABS3 = TAB + TAB + TAB;
+        internal const string TABS4 = TAB + TAB + TAB + TAB;
+        internal const string TABS5 = TAB + TAB + TAB + TAB + TAB;
+        internal const string TABS6 = TAB + TAB + TAB + TAB + TAB + TAB;
+
     	protected string ClassNamePrefix { get; set;}
         protected ApplicationPreferences applicationPreferences;
 
@@ -58,7 +65,7 @@ namespace NMG.Core.Generator
             var streamWriter = new StringWriter();
             using (provider)
             {
-                var textWriter = new IndentedTextWriter(streamWriter, "    ");
+                var textWriter = new IndentedTextWriter(streamWriter, TAB);
                 using (textWriter)
                 {
                     using (streamWriter)
