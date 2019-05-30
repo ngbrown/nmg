@@ -506,7 +506,10 @@ namespace NHibernateMappingGenerator
             ownersComboBox.Items.AddRange(owners.ToArray());
 
             tablesListBox.SelectedIndexChanged += TablesListSelectedIndexChanged;
-            ownersComboBox.SelectedIndex = 0;
+
+            // default to "dbo"
+            int dboIndex = owners.IndexOf("dbo");
+            ownersComboBox.SelectedIndex = dboIndex >= 0 ? dboIndex : 0;
         }
 
         private void PopulateTablesAndSequences()
