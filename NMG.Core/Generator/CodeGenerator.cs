@@ -228,7 +228,7 @@ namespace NMG.Core.Generator
                     {
                         property.CustomAttributes.Add(new CodeAttributeDeclaration("Required"));
                     }
-                    if (column.DataLength.HasValue & column.DataLength > 0 & column.MappedDataType == "System.String" & appPrefs.IncludeLengthAndScale)
+                    if (column.DataLength.HasValue && column.DataLength > 0 && column.DataLength < int.MaxValue && column.MappedDataType == "System.String" && appPrefs.IncludeLengthAndScale)
                     {
                         property.CustomAttributes.Add(new CodeAttributeDeclaration("StringLength", new CodeAttributeArgument(new CodePrimitiveExpression(column.DataLength))));
                     }
@@ -238,7 +238,7 @@ namespace NMG.Core.Generator
                     {
                         property.CustomAttributes.Add(new CodeAttributeDeclaration("NotNullNotEmpty"));
                     }
-                    if (column.DataLength.HasValue & column.DataLength > 0 & column.MappedDataType == "System.String" & appPrefs.IncludeLengthAndScale)
+                    if (column.DataLength.HasValue && column.DataLength > 0 && column.MappedDataType == "System.String" && appPrefs.IncludeLengthAndScale)
                     {
                         property.CustomAttributes.Add(new CodeAttributeDeclaration("Length", new CodeAttributeArgument(new CodePrimitiveExpression(column.DataLength))));
                     }
