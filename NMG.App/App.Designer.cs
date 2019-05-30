@@ -118,7 +118,7 @@ namespace NHibernateMappingGenerator
             this.noValidationRadioButton = new System.Windows.Forms.RadioButton();
             this.nhibernateValidationRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.entityFrameworkRadionBtn = new System.Windows.Forms.RadioButton();
+            this.entityFrameworkOption = new System.Windows.Forms.RadioButton();
             this.castleMappingOption = new System.Windows.Forms.RadioButton();
             this.fluentMappingOption = new System.Windows.Forms.RadioButton();
             this.hbmMappingOption = new System.Windows.Forms.RadioButton();
@@ -137,6 +137,7 @@ namespace NHibernateMappingGenerator
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.dapperFluentMapOption = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dbTableDetailsGridView)).BeginInit();
             this.mainTabControl.SuspendLayout();
             this.basicSettingsTabPage.SuspendLayout();
@@ -722,7 +723,7 @@ namespace NHibernateMappingGenerator
             this.groupBox10.Controls.Add(this.fieldPrefixListBox);
             this.groupBox10.Controls.Add(this.label7);
             this.groupBox10.Controls.Add(this.fieldPrefixTextBox);
-            this.groupBox10.Location = new System.Drawing.Point(527, 152);
+            this.groupBox10.Location = new System.Drawing.Point(527, 171);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(309, 222);
             this.groupBox10.TabIndex = 8;
@@ -1032,28 +1033,29 @@ namespace NHibernateMappingGenerator
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.entityFrameworkRadionBtn);
+            this.groupBox3.Controls.Add(this.dapperFluentMapOption);
+            this.groupBox3.Controls.Add(this.entityFrameworkOption);
             this.groupBox3.Controls.Add(this.castleMappingOption);
             this.groupBox3.Controls.Add(this.fluentMappingOption);
             this.groupBox3.Controls.Add(this.hbmMappingOption);
             this.groupBox3.Controls.Add(this.byCodeMappingOption);
             this.groupBox3.Location = new System.Drawing.Point(527, 6);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(309, 140);
+            this.groupBox3.Size = new System.Drawing.Size(309, 159);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Mapping Style";
             // 
             // entityFrameworkRadionBtn
             // 
-            this.entityFrameworkRadionBtn.AutoSize = true;
-            this.entityFrameworkRadionBtn.Location = new System.Drawing.Point(6, 109);
-            this.entityFrameworkRadionBtn.Name = "entityFrameworkRadionBtn";
-            this.entityFrameworkRadionBtn.Size = new System.Drawing.Size(106, 17);
-            this.entityFrameworkRadionBtn.TabIndex = 11;
-            this.entityFrameworkRadionBtn.TabStop = true;
-            this.entityFrameworkRadionBtn.Text = "Entity Framework";
-            this.entityFrameworkRadionBtn.UseVisualStyleBackColor = true;
+            this.entityFrameworkOption.AutoSize = true;
+            this.entityFrameworkOption.Location = new System.Drawing.Point(6, 111);
+            this.entityFrameworkOption.Name = "entityFrameworkOption";
+            this.entityFrameworkOption.Size = new System.Drawing.Size(106, 17);
+            this.entityFrameworkOption.TabIndex = 11;
+            this.entityFrameworkOption.TabStop = true;
+            this.entityFrameworkOption.Text = "Entity Framework";
+            this.entityFrameworkOption.UseVisualStyleBackColor = true;
             // 
             // castleMappingOption
             // 
@@ -1248,6 +1250,17 @@ namespace NHibernateMappingGenerator
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(300, 16);
             // 
+            // dapperFluentMapRadionBtn
+            // 
+            this.dapperFluentMapOption.AutoSize = true;
+            this.dapperFluentMapOption.Location = new System.Drawing.Point(6, 134);
+            this.dapperFluentMapOption.Name = "dapperFluentMapOption";
+            this.dapperFluentMapOption.Size = new System.Drawing.Size(113, 17);
+            this.dapperFluentMapOption.TabIndex = 11;
+            this.dapperFluentMapOption.TabStop = true;
+            this.dapperFluentMapOption.Text = "Dapper.FluentMap";
+            this.dapperFluentMapOption.UseVisualStyleBackColor = true;
+            // 
             // App
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1258,7 +1271,6 @@ namespace NHibernateMappingGenerator
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "App";
             this.Text = "NHibernate Mapping Generator";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.dbTableDetailsGridView)).EndInit();
             this.mainTabControl.ResumeLayout(false);
             this.basicSettingsTabPage.ResumeLayout(false);
@@ -1409,7 +1421,8 @@ namespace NHibernateMappingGenerator
         private CheckBox includeHasManyCheckBox;
         private CheckBox EnableInflectionsCheckBox;
         private CheckBox nameAsForeignTableCheckBox;
-        private RadioButton entityFrameworkRadionBtn;
+        private RadioButton entityFrameworkOption;
+        private RadioButton dapperFluentMapOption;
     }
 }
 

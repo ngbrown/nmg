@@ -121,7 +121,12 @@ namespace NHibernateMappingGenerator
 
         public bool IsEntityFramework
         {
-            get { return entityFrameworkRadionBtn.Checked; }
+            get { return entityFrameworkOption.Checked; }
+        }
+
+        public bool IsDapperFluent
+        {
+            get { return dapperFluentMapOption.Checked; }
         }
 
         public bool IsCastle
@@ -179,9 +184,10 @@ namespace NHibernateMappingGenerator
                 includeHasManyCheckBox.Checked = applicationSettings.IncludeHasMany;
 
                 fluentMappingOption.Checked = applicationSettings.IsFluent;
-                entityFrameworkRadionBtn.Checked = applicationSettings.IsEntityFramework;
+                entityFrameworkOption.Checked = applicationSettings.IsEntityFramework;
                 castleMappingOption.Checked = applicationSettings.IsCastle;
                 byCodeMappingOption.Checked = applicationSettings.IsByCode;
+                dapperFluentMapOption.Checked = applicationSettings.IsDapperFluent;
 
                 if (applicationSettings.FieldPrefixRemovalList == null)
                     applicationSettings.FieldPrefixRemovalList = new List<string>();
@@ -318,7 +324,8 @@ namespace NHibernateMappingGenerator
 
             applicationSettings.ValidationStyle = validationStyle;
             applicationSettings.IsFluent = fluentMappingOption.Checked;
-            applicationSettings.IsEntityFramework = entityFrameworkRadionBtn.Checked;
+            applicationSettings.IsEntityFramework = entityFrameworkOption.Checked;
+            applicationSettings.IsDapperFluent = dapperFluentMapOption.Checked;
             applicationSettings.IsAutoProperty = autoPropertyRadioBtn.Checked;
             applicationSettings.FolderPath = folderTextBox.Text;
             applicationSettings.DomainFolderPath = domainFolderTextBox.Text;
@@ -726,6 +733,7 @@ namespace NHibernateMappingGenerator
                                                  Prefix = prefixTextBox.Text,
                                                  IsFluent = IsFluent,
                                                  IsEntityFramework = IsEntityFramework,
+                                                 IsDapperFluent = IsDapperFluent,
                                                  IsCastle = IsCastle,
                                                  GeneratePartialClasses = appSettings.GeneratePartialClasses,
                                                  GenerateWcfDataContract = appSettings.GenerateWcfContracts,

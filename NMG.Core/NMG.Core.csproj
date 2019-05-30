@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -93,12 +93,14 @@
     <Compile Include="Domain\Table.cs" />
     <Compile Include="Domain\ValidationStyle.cs" />
     <Compile Include="FieldNamingConvention.cs" />
+    <Compile Include="Fluent\DapperFluentColumnMapper.cs" />
     <Compile Include="Fluent\FluentColumnMapper.cs" />
     <Compile Include="Fluent\Constants.cs" />
     <Compile Include="Generator\AbstractCodeGenerator.cs" />
     <Compile Include="Generator\CastleGenerator.cs" />
     <Compile Include="Generator\CodeGenerationHelper.cs" />
     <Compile Include="Generator\ContractGenerator.cs" />
+    <Compile Include="Generator\DapperFluentGenerator.cs" />
     <Compile Include="Generator\EntityFrameworkGenerator.cs" />
     <Compile Include="Generator\CUBRIDMappingGenerator.cs" />
     <Compile Include="Generator\FluentGenerator.cs" />
