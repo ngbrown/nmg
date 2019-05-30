@@ -8,7 +8,7 @@ using NMG.Core.Generator;
 
 namespace NMG.Core.ByCode
 {
-    public class DBColumnMapper
+    public class ByCodeColumnMapper
     {
         private readonly ApplicationPreferences _applicationPreferences;
         private readonly Language _language;
@@ -20,7 +20,7 @@ namespace NMG.Core.ByCode
         internal const string TABS5 = AbstractGenerator.TABS5;
         internal const string TABS6 = AbstractGenerator.TABS6;
 
-        public DBColumnMapper(ApplicationPreferences applicationPreferences)
+        public ByCodeColumnMapper(ApplicationPreferences applicationPreferences)
         {
             _applicationPreferences = applicationPreferences;
             _language = applicationPreferences.Language;
@@ -61,10 +61,8 @@ namespace NMG.Core.ByCode
             var mapList = new List<string>();
             var propertyName = formatter.FormatText(column.Name);
 
-            if (column.Name.ToLower() != propertyName.ToLower())
-            {
-                mapList.Add("map.Column(\"" + column.Name + "\")");
-            }
+            // Column Name - Always output column name to allow for refactoring the property name.
+            mapList.Add("map.Column(\"" + column.Name + "\")");
             mapList.Add(column.IsIdentity ? "map.Generator(Generators.Identity)" : "map.Generator(Generators.Assigned)");
 
             // Outer property definition
@@ -114,10 +112,8 @@ namespace NMG.Core.ByCode
             var mapList = new List<string>();
 
             // Column
-            if (column.Name.ToLower() != propertyName.ToLower())
-            {
-                mapList.Add("map.Column(\"" + column.Name + "\")");
-            }
+            // Column Name - Always output column name to allow for refactoring the property name.
+            mapList.Add("map.Column(\"" + column.Name + "\")");
             // Not Null
             if (!column.IsNullable)
             {

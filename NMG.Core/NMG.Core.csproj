@@ -93,7 +93,7 @@
     <Compile Include="Domain\Table.cs" />
     <Compile Include="Domain\ValidationStyle.cs" />
     <Compile Include="FieldNamingConvention.cs" />
-    <Compile Include="Fluent\DBColumnMapper.cs" />
+    <Compile Include="Fluent\FluentColumnMapper.cs" />
     <Compile Include="Fluent\Constants.cs" />
     <Compile Include="Generator\AbstractCodeGenerator.cs" />
     <Compile Include="Generator\CastleGenerator.cs" />
@@ -137,7 +137,7 @@
     <Compile Include="Util\StringConstants.cs" />
     <Compile Include="Domain\ColumnDetails.cs" />
     <Compile Include="Generator\ByCodeGenerator.cs" />
-    <Compile Include="ByCode\DBColumnMapper.cs" />
+    <Compile Include="ByCode\ByCodeColumnMapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -13,7 +13,7 @@ namespace NHibernateMappingGenerator
         private readonly MappingGenerator mappingGenerator;
         private readonly ContractGenerator contractGenerator;
         private readonly ByCodeGenerator byCodeGenerator;
-        private EntityFrameworkGenerator entityFrameworkGenerator;
+        private readonly EntityFrameworkGenerator entityFrameworkGenerator;
 
         public ApplicationController(ApplicationPreferences applicationPreferences, Table table)
         {

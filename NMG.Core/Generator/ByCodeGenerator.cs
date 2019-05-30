@@ -58,7 +58,7 @@ namespace NMG.Core.Generator
 
             var constructor = new CodeConstructor {Attributes = MemberAttributes.Public};
 
-            // Table Name - Always ouput table to allow for refactoring the class name.
+            // Table Name - Always output table to allow for refactoring the class name.
             constructor.Statements.Add(new CodeSnippetStatement(TABS3 + "Table(\"" + Table.Name + "\");"));
             // Scheme / Owner Name
             if (!string.IsNullOrEmpty(Table.Owner))
@@ -68,7 +68,7 @@ namespace NMG.Core.Generator
 
             constructor.Statements.Add(new CodeSnippetStatement(TABS3 + string.Format("Lazy({0});", appPrefs.UseLazy ? "true" : "false")));
 
-            var mapper = new DBColumnMapper(appPrefs);
+            var mapper = new ByCodeColumnMapper(appPrefs);
 
             // Id or ComposedId Map 
             if (Table.PrimaryKey != null)

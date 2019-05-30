@@ -7,12 +7,12 @@ using NUnit.Framework.SyntaxHelpers;
 namespace NMG.Tests.Fluent
 {
     [TestFixture]
-    public class DBColumnMapperTest
+    public class FluentColumnMapperTest
     {
         [Test]
         public void ShouldMapDBColumn()
         {
-            var mapper = new DBColumnMapper();
+            var mapper = new FluentColumnMapper();
             var column = new Column
                              {
                                  Name = "Age",
@@ -25,7 +25,7 @@ namespace NMG.Tests.Fluent
         [Test]
         public void ShouldMapDBColumnWithProperties()
         {
-            var mapper = new DBColumnMapper();
+            var mapper = new FluentColumnMapper();
             var column = new Column
                              {
                                  Name = "Name",

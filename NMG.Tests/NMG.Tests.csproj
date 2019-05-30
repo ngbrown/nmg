@@ -75,7 +75,7 @@
   <ItemGroup>
     <Compile Include="Core\ColumnDetailsTest.cs" />
     <Compile Include="DataTypeMapperTest.cs" />
-    <Compile Include="Fluent\DBColumnMapperTest.cs" />
+    <Compile Include="Fluent\FluentColumnMapperTest.cs" />
     <Compile Include="Generator\CodeGenerationHelperTest.cs" />
     <Compile Include="Generator\CodeGeneratorTest.cs" />
     <Compile Include="Generator\OracleMappingGeneratorTest.cs" />

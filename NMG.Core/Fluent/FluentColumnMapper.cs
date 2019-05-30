@@ -4,7 +4,7 @@ using NMG.Core.TextFormatter;
 
 namespace NMG.Core.Fluent
 {
-    public class DBColumnMapper
+    public class FluentColumnMapper
     {
         public string Map(Column column, string fieldName, ITextFormatter Formatter, bool includeLengthAndScale = true)
         {
@@ -24,23 +24,23 @@ namespace NMG.Core.Fluent
                 mappedStrBuilder.Append("Unique()");
             }
 
-            if (column.DataLength.GetValueOrDefault() > 0 & includeLengthAndScale)
+            if (column.DataLength.HasValue && column.DataLength.Value > 0 && includeLengthAndScale)
             {
                 mappedStrBuilder.Append(Constants.Dot);
                 mappedStrBuilder.Append("Length(" + column.DataLength + ")");
             }
             else
             {
-                if (column.DataPrecision.GetValueOrDefault(0) > 0 & includeLengthAndScale)
+                if (column.DataPrecision > 0 && includeLengthAndScale)
                 {
                     mappedStrBuilder.Append(Constants.Dot);
-                    mappedStrBuilder.Append("Precision(" + column.DataPrecision + ")");
+                    mappedStrBuilder.Append("Precision(" + column.DataPrecision.Value + ")");
                 }
 
-                if (column.DataScale.GetValueOrDefault(0) > 0 & includeLengthAndScale)
+                if (column.DataScale > 0 && includeLengthAndScale)
                 {
                     mappedStrBuilder.Append(Constants.Dot);
-                    mappedStrBuilder.Append("Scale(" + column.DataScale + ")");
+                    mappedStrBuilder.Append("Scale(" + column.DataScale.Value + ")");
                 }
             }
 

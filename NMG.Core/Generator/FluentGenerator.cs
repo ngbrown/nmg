@@ -97,7 +97,7 @@ namespace NMG.Core.Generator
             {
                 var propertyName = Formatter.FormatText(column.Name);
                 var fieldName = FixPropertyWithSameClassName(propertyName, Table.Name);
-                var columnMapping = new DBColumnMapper().Map(column, fieldName, Formatter, appPrefs.IncludeLengthAndScale);
+                var columnMapping = new FluentColumnMapper().Map(column, fieldName, Formatter, appPrefs.IncludeLengthAndScale);
                 constructor.Statements.Add(new CodeSnippetStatement(TABS3 + columnMapping));
             }
 
