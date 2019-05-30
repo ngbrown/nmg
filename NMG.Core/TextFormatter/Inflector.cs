@@ -97,6 +97,7 @@ namespace NMG.Core.TextFormatter
 
                 AddSingularRule("s$", String.Empty);
                 AddSingularRule("ss$", "ss");
+                AddSingularRule("sys$", "sys");
                 AddSingularRule("(n)ews$", "$1ews");
                 AddSingularRule("([ti])a$", "$1um");
                 AddSingularRule("((a)naly|(b)a|(d)iagno|(p)arenthe|(p)rogno|(s)ynop|(t)he)ses$", "$1$2sis");
@@ -284,6 +285,11 @@ namespace NMG.Core.TextFormatter
         {
             if (String.IsNullOrEmpty(text))
                 return text;
+
+            // Split by capitals to preserve pascal/camelcasing in original text value. Preserves TLAs. See http://stackoverflow.com/a/1098039
+            text = Regex.Replace(text, "((?<=[a-z])[A-Z]|[A-Z](?=[a-z]))", " $1").Trim();
+
+            // Omit any chars except letters and numbers in class or properties.
             text = text.Replace("_", " ");
             string joinString = removeUnderscores ? String.Empty : "_";
             string[] words = text.Split(' ');

@@ -25,11 +25,6 @@ namespace NMG.Core.TextFormatter
             // Cannot have class or property with not allowed chars
             result = result.Replace("%", "").Replace("á", "a").Replace("é", "e").Replace("í", "i").Replace("ó", "o").Replace("ú", "u");
 
-            // Split by capitals to preserve pascal/camelcasing in original text value. Preserves TLAs. See http://stackoverflow.com/a/1098039
-            result = Regex.Replace(result, "((?<=[a-z])[A-Z]|[A-Z](?=[a-z]))", "$1").Trim();
-
-            // Omit any chars except letters and numbers in class or properties.
-//            result = result.Replace(" ", "_");
             result = Regex.Replace(result, "[^a-zA-Z0-9_]", string.Empty); //And Underscore
 
             if (result.Length != 0 && char.IsNumber(result.ToCharArray(0, 1)[0]))

@@ -68,6 +68,8 @@ namespace NMG.Tests
             Inflector.EnableInflection = true;
             Assert.AreEqual("ColumnNames", formatter.FormatPlural("Column_Name"));
             Assert.AreEqual("ColumnNames", formatter.FormatPlural("COLUMN_NAME"));
+            Assert.AreEqual("ColumnNames", formatter.FormatPlural("ColumnName"));
+            Assert.AreEqual("ColumnNames", formatter.FormatPlural("column_name"));
         }
 
         [Test]
@@ -78,8 +80,8 @@ namespace NMG.Tests
             Assert.AreEqual("columnName", formatter.FormatText("Column_Name"));
             Assert.AreEqual("columnName", formatter.FormatText("COLUMN_NAME"));
             Assert.AreEqual("hitMan", formatter.FormatText("Hit_Man"));
-            Assert.AreEqual("hitman", formatter.FormatText("Hit Man"));
-            Assert.AreEqual("hitman", formatter.FormatText("HitMan"));
+            Assert.AreEqual("hitMan", formatter.FormatText("Hit Man"));
+            Assert.AreEqual("hitMan", formatter.FormatText("HitMan"));
         }
 
         [Test] public void ConvertStringToPascalCase()
@@ -88,6 +90,8 @@ namespace NMG.Tests
 
             Assert.AreEqual("ColumnName", formatter.FormatText("column_name"));
             Assert.AreEqual("TheNameIsBondJamesBond", formatter.FormatText("the_name_is_BOND_james_bond"));
+            Assert.AreEqual("ColumnName", formatter.FormatText("ColumnName"));
+            Assert.AreEqual("ColumnName", formatter.FormatText("columnName"));
         }
 
         [Test]
