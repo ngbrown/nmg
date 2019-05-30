@@ -459,12 +459,7 @@ namespace NMG.Core.Generator
                 entireContent = entireContent.Replace(builder.ToString(), "{ get; set; }");
             } else if (appPrefs.Language == Language.VB)
             {
-                const string blah = @"
-            Get
-            End Get
-            Set
-            End Set
-        End Property";
+                const string blah = "\r\n            Get\r\n            End Get\r\n            Set\r\n            End Set\r\n        End Property";
                 entireContent = entireContent.Replace(blah, string.Empty);
             }
             return entireContent;

@@ -138,15 +138,9 @@ namespace NMG.Core.Generator
             //            entireContent = entireContent.Replace(@"set {
             //            }", "set;");
             // Do NOT mess with this...
-            entireContent = entireContent.Replace(@"{
-        }", "{ }");
+            entireContent = entireContent.Replace("{\r\n        }", "{ }");
             entireContent = entireContent.Replace(
-                @"{
-            get {
-            }
-            set {
-            }
-        }", "{ get; set; }");
+                "{\r\n            get {\r\n            }\r\n            set {\r\n            }\r\n        }", "{ get; set; }");
             return entireContent;
         }
 

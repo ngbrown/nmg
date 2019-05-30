@@ -54,10 +54,8 @@ namespace NMG.Core.Generator
         // Hack : Auto property generator is not there in CodeDom.
         private static string FixAutoProperties(string entireContent)
         {
-            entireContent = entireContent.Replace(@"get {
-            }", "get;");
-            entireContent = entireContent.Replace(@"set {
-            }", "set;");
+            entireContent = entireContent.Replace("get {\r\n            }", "get;");
+            entireContent = entireContent.Replace("set {\r\n            }", "set;");
             return entireContent;
         }
 
